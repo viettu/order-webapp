@@ -1,3 +1,5 @@
+import { number } from "yargs";
+
 export interface IProduct {
     id: number;
     title: string;
@@ -5,11 +7,12 @@ export interface IProduct {
     reviewCount: number;
     score: number;
     unit?: string;
+    image: string;
 }
 
 export interface IOrderItem {
     id: number;
-    product: string;
+    product: IProduct;
     price: number;
     quantity: number;
 }
@@ -22,10 +25,11 @@ export interface IOrderInfo {
 
 export interface IOrder {
     id: number;
+    state: string;
     amount: number;
     items: Array<Partial<IOrderItem>>;
     info: IOrderInfo;
-    createdDate: string;
+    entityCreated: string;
 }
 
 export enum OrderStates {

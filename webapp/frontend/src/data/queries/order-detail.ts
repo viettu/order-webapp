@@ -14,7 +14,12 @@ export const QUERY_ORDER_DETAIL = gql`
                 phone
             }
             items {
-                product
+                product {
+                    id
+                    image
+                    title
+                    price
+                }
                 quantity
                 unit
                 price

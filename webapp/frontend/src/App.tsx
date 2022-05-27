@@ -4,39 +4,27 @@ import {
 } from "@chakra-ui/react"
 import { Layout } from "./components"
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
-import { Cart, Order, OrderDetail, ProductSelection } from "./pages";
+import { CreateOrder, OrderDetail, ProductSelection, OrderList } from "./pages";
 
+const AppContainer = () => {
+  return (
+    <ChakraProvider theme={theme}>
+      <Layout>
+        <Outlet></Outlet>
+      </Layout>
+    </ChakraProvider>
+  )
+};
 
-// const 
-
-const AppContainer = () => (
-  <ChakraProvider theme={theme}>
-    <Layout>
-      <Outlet></Outlet>
-      {/* <Home></Home> */}
-    </Layout>
-  </ChakraProvider>
-);
-
-// const App = () => (
-//   <ChakraProvider theme={theme}>
-//     <Layout>
-//       <Home></Home>
-//     </Layout>
-//   </ChakraProvider>
-// )
-
-export const App = () => {
+const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<AppContainer />}>
           <Route path="product-selection" element={<ProductSelection />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="order" element={<Order />}>
-            {/* <Route path=":id" element={<OrderDetail />} /> */}
-          </Route>
+          <Route path="cart" element={<CreateOrder />} />
           <Route path="order/:id" element={<OrderDetail />} />
+          <Route path="orders" element={<OrderList />} />
         </Route>
         <Route
           path="*"
@@ -50,3 +38,5 @@ export const App = () => {
     </BrowserRouter>
   )
 }
+
+export default App;

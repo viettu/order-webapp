@@ -19,41 +19,43 @@ export class OrdersService {
     private readonly ordersPaymentQueueProcessor: OrdersPaymentQueueProcessor
   ) {}
 
-  async create(createUserDto: CreateOrderDto): Promise<OrderEntity> {
+  async create(orderDto: CreateOrderDto): Promise<OrderEntity> {
     
     // TODO: should update the validation
     // TODO: transaction?
 
     const orderInfo = new OrderInfoEntity();
-    orderInfo.name = createUserDto.info.name;
-    orderInfo.address = createUserDto.info.address;
-    orderInfo.phone = createUserDto.info.phone;
-    const newOrderInfo = await this.orderInfoRepository.save(orderInfo);
+    orderInfo.name = orderDto.info.name;
+    orderInfo.address = orderDto.info.address;
+    orderInfo.phone = orderDto.info.phone;
+    // const newOrderInfo = await this.orderInfoRepository.save(orderInfo);
 
-    const order = new OrderEntity();
-    order.state = OrderStates.CREATED;
-    order.amount =  createUserDto.amount;
-    order.info = newOrderInfo;
-    const newOrder = await this.ordersRepository.save(order);
-
-    const orderItems: OrderItemEntity[] = createUserDto?.items.map((e) => {
+    const orderItems: OrderItemEntity[] = orderDto?.items.map((e) => {
       const orderItem = new OrderItemEntity();
-      orderItem.product = e.product;
+      orderItem.productId = e.productId;
       orderItem.order = order;
       orderItem.price = e.price;
       orderItem.quantity = e.quantity;
       orderItem.unit = e.unit;
       return orderItem;
     });
+
+    const order = new OrderEntity();
+    order.state = OrderStates.CREATED;
+    order.amount =  orderDto.amount;
+    order.info = orderInfo;
+    order.items = orderItems;
+    const newOrder = await this.ordersRepository.save(order);    
     
-    await this.orderItemsRepository.save(orderItems);
+    // await this.ordersRepository.save(order);
 
     await this.ordersPaymentQueueProcessor.processPayment(newOrder.id);
+    
     return this.getOrder(newOrder.id);
   }
 
   async findAll(): Promise<OrderEntity[]> {
-    return this.ordersRepository.find();
+    return this.ordersRepository.find({ relations: ["items", "info"] });
   }
 
   async findOne(id: number): Promise<OrderEntity> {

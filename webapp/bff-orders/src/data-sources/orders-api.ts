@@ -1,34 +1,65 @@
+import { isTypeSystemDefinitionNode } from 'graphql';
+import { IOrder } from 'src/schema';
 import BaseApi from './base-api';
+import ProductsApi from './products-api';
 
 export interface IOrdersApi {
-  getOrders: () => Promise<any>;
-  createOrder: (order: any) => Promise<any>;
+  getOrder: (id: number) => Promise<IOrder>;
+  getOrders: () => Promise<Array<IOrder>>;
+  createOrder: (order: Partial<IOrder>) => Promise<IOrder>;
+  getOrderState: (id: number) => Promise<string>;
+  cancelOrder: (id: number) => Promise<IOrder>;
 }
 
 class OrdersApi extends BaseApi implements IOrdersApi {
+  private readonly productApi = new ProductsApi();
+
   constructor() {
     super();
     this.baseURL = process.env.ORDERS_SERVICE_URL;
   }
 
-  public async getOrder(id: number) {
-    return this.getData(`/orders/${id}`);
+  async getOrder(id: number): Promise<IOrder> {
+    const order: IOrder = await this.getData(`/orders/${id}`);
+    
+    // fill product info for items
+    if (order.items && order.items.length > 0) {
+      const productIds = order.items.map(item => item.productId);
+      const products = await this.productApi.getProductsByIds(productIds);
+      
+      // console.log(products);
+      for(let i = 0; i < order.items.length; i++) {
+        const item = order.items[i];
+        const foundProduct = products.find(p => p.id = item.productId);
+        item.product = {...foundProduct};
+      }
+      // let foundProduct;
+      // order.items = order.items.map(item => {
+      //   foundProduct = products.find(p => p.id = item.productId);
+      //   console.log(`foundItem`, foundProduct);
+      //   const newItem = {...item, product: {...foundProduct}};
+      //   console.log('new item', newItem);
+      //   return newItem;
+      // });
+      // console.log(order.items);
+    }
+
+    return order;
   }
 
-  public async getOrderState(id: number) {
+  async getOrderState(id: number): Promise<string> {
     return this.getData(`/orders/${id}/state`);
   }
 
-  public async getOrders() {
+  async getOrders(): Promise<Array<IOrder>> {
     return this.getData('/orders');
   }
 
-  // TODO: should replase "any"
-  public async createOrder(order: any) {
+  async createOrder(order: Partial<IOrder>): Promise<IOrder> {
     return this.postData('/orders', order);
   }
 
-  public async cancelOrder(id: number) {
+  async cancelOrder(id: number) {
     return this.postData(`/orders/${id}`);
   }
 }

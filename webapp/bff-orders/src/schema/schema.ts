@@ -1,10 +1,19 @@
 import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
+  type Product {
+    id: Int
+    title: String
+    image: String
+    price: Float
+    reviewCount: Int
+    score: Int
+  }
+
   type OrderItem {
     id: Int
     order: Order
-    product: String
+    product: Product
     price: Float
     quantity: Int
     unit: String
@@ -29,7 +38,7 @@ const typeDefs = gql`
   }
 
   input OrderItemInput {
-    product: String
+    productId: Int
     price: Float
     quantity: Float
     unit: String
@@ -51,6 +60,7 @@ const typeDefs = gql`
     getOrder(id: Int): Order
     getOrderState(id: Int): String
     getOrders: [Order]
+    getProducts: [Product]
   }
 
   type Mutation {

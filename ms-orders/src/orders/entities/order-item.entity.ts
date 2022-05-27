@@ -10,7 +10,7 @@ export class OrderItemEntity {
   order: OrderEntity;
 
   @Column()
-  product: string;
+  productId: number;
 
   @Column()
   price: number;

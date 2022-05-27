@@ -1,4 +1,4 @@
-import {IOrderItem} from '../../data';
+import {IOrderItem, IProduct} from '../../data';
 
 export enum CART_REDUCER_TYPE {
     ADD_ITEM = 'ADD_ITEM',
@@ -10,7 +10,7 @@ export enum CART_REDUCER_TYPE {
 export interface ICartItemsOperatorsPayload {
     id?: number;
     quantity: number;
-    price?: number;
+    product?: IProduct;
 }
 
 export interface ICartReducerAction {
@@ -18,9 +18,9 @@ export interface ICartReducerAction {
     payload?: ICartItemsOperatorsPayload | undefined;
 }
 
-// TODO; should remove this interface?
-export interface ICartItem extends IOrderItem {
-    amount?: number;
+export interface ICartItem {
+    product: IProduct;
+    quantity: number;
 }
 
 export interface ICartStore {

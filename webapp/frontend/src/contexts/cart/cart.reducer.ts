@@ -1,4 +1,4 @@
-import {IOrderItem} from '../../data';
+import {IOrderItem, IProduct} from '../../data';
 import {CART_REDUCER_TYPE, ICartItem, ICartReducerAction, ICartStore} from './cart.interface';
 
 export const cartReducer = (state: ICartStore, action: ICartReducerAction): ICartStore => {
@@ -14,20 +14,9 @@ export const cartReducer = (state: ICartStore, action: ICartReducerAction): ICar
     }
 };
 
-const getCartItem = (orderItem: IOrderItem): ICartItem => {
-    const {id, product, price, quantity} = orderItem;
-    return {
-        id,
-        product,
-        price,
-        quantity,
-        amount: price * quantity,
-    } as ICartItem;
-};
-
 const updateItemQuantity = (state: ICartStore, action: ICartReducerAction) => {
     if (action.payload) {
-        const itemIndex = state.items.findIndex((item) => item.id === action.payload?.id);
+        const itemIndex = state.items.findIndex((item) => item.product.id === action.payload?.id);
         if (itemIndex > -1) {
             const cloneItems = [...state.items];
             cloneItems[itemIndex].quantity = action.payload.quantity || 0;
@@ -43,7 +32,7 @@ const addItemToCart = (state: ICartStore, action: ICartReducerAction) => {
     if (!action.payload) {
         return [...state.items];
     }
-    const itemIndex = state.items.findIndex((item) => item.id === action.payload?.id);
+    const itemIndex = state.items.findIndex((item) => item.product.id === action.payload?.id);
 
     // If the item exist in the cart, increase the quatity
     if (itemIndex > -1) {
@@ -53,12 +42,12 @@ const addItemToCart = (state: ICartStore, action: ICartReducerAction) => {
 
         return cloneItems;
     }
-    return [...state.items, getCartItem(action.payload as IOrderItem)];
+    return [...state.items, {product: action.payload.product, quantity: action.payload.quantity} as ICartItem];
 };
 
 const removeItemFromCart = (state: ICartStore, action: ICartReducerAction) => {
     return state.items.reduce((acc: Array<ICartItem>, item) => {
-        if (item.id === action.payload?.id) {
+        if (item.product.id === action.payload?.id) {
             const newQuantity = item.quantity - action.payload?.quantity;
 
             // Remove out of cart if we remove the last item from the cart

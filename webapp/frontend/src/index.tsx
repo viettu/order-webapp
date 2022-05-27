@@ -1,6 +1,6 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
 import * as ReactDOM from "react-dom/client"
-import { App } from "./App"
+import App from "./App"
 import { CartProvider } from "./contexts/cart";
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
@@ -16,6 +16,4 @@ root.render(
       <App />
     </CartProvider>
   </ApolloProvider>
-  // <React.StrictMode>
-  // </React.StrictMode>,
 );

@@ -1,9 +1,12 @@
-import { Box, Button, ButtonGroup, Flex, Heading, Spacer } from "@chakra-ui/react"
+import { Box, Button, HStack, Flex, Heading, Spacer, IconButton } from "@chakra-ui/react"
 import { Link } from "react-router-dom";
-import {useCart} from '../../contexts/cart';
+import { useCart } from '../../contexts/cart';
+import UserProfile from "../UserProfile/UserProfile";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 export const Header: React.FC = () => {
     const { getItemsCount } = useCart();
+    const itemsInCart = getItemsCount();
     return (
         <Flex
             px="4"
@@ -18,17 +21,20 @@ export const Header: React.FC = () => {
             justifyContent={{ base: "space-between", md: "flex-end" }}
             >
                 <Box p='2'>
-                    <Heading size='md'>Boooooo...</Heading>
+                    <Link to={'/product-selection'}>
+                        <Heading size='md' color={'teal'}>Shooooop</Heading>
+                    </Link>
                 </Box>
                 <Spacer />
-                <ButtonGroup gap='2'>
-                    <Link to={'/product-selection'}>
-                        <Button colorScheme='teal'>Your orders (0)</Button>
-                    </Link>
+
+                <HStack spacing={5}>
                     <Link to={'/cart'}>
-                        <Button colorScheme='teal'>Your card ({getItemsCount()})</Button>
+                        <Button leftIcon={<AiOutlineShoppingCart fontSize={'2em'} />} colorScheme='teal' variant='outline' borderWidth={0}>
+                            { itemsInCart > 0 ? itemsInCart : '' }
+                        </Button>
                     </Link>
-                </ButtonGroup>
+                    <UserProfile></UserProfile>
+                </HStack>
         </Flex>
     )
 }

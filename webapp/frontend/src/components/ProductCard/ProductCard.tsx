@@ -1,6 +1,7 @@
-import { Box, Button, Center, chakra, Flex, Image } from "@chakra-ui/react"
+import { Box, Button, IconButton, chakra, Flex, Image } from "@chakra-ui/react"
 import { AiTwotoneStar } from "react-icons/ai";
 import { IProduct } from "../../data";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 interface ProductCardProps {
     product: IProduct,
@@ -18,7 +19,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         title,
         price,
         reviewCount,
-        score
+        score,
+        image
       } = product;
     return (
         <Flex
@@ -41,16 +43,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             roundedTop="lg"
           >
             <Image
-              src={'https://bit.ly/2Z4KKcF'}
+              src={`/images/${image}.png`}
               objectFit="cover"
-              alt="picture of a house"
+              alt={title}
             />
-            {/* <Image
-              src={img}
-              objectFit="cover"
-              alt="picture of a house"
-              layout="fill"
-            /> */}
           </Box>
   
           <Box p="6">
@@ -70,16 +66,24 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                             color={i < score ? "teal.500" : "gray.300"}
                             />
                         ))}
-                        <Box as="span" ml="2" color="gray.600" fontSize="sm">
+                        {/* <Box as="span" ml="2" color="gray.600" fontSize="sm">
                         {reviewCount} reviews
-                        </Box>
+                        </Box> */}
                     </Flex>
                 </Box>
-                <Center w={50} h={50} color="blue">
+                <IconButton
+                  colorScheme='teal'
+                  size="lg"
+                  onClick={() => addItemToCart?.()}
+                  variant="ghost"
+                  aria-label="open menu"
+                  icon={<AiOutlineShoppingCart fontSize={'2em'} />}
+                />
+                {/* <Center w={50} h={50} color="blue">
                     <Button onClick={() => addItemToCart?.()}>
                         Add to cart
                     </Button>
-                </Center>
+                </Center> */}
             </Flex>
           </Box>
         </Box>

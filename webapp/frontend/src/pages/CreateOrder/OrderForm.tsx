@@ -5,7 +5,6 @@ import { Button,
     FormErrorMessage,
     Input,
     InputGroup,
-    InputLeftAddon,
     VStack,
     InputLeftElement,
     Center
@@ -15,7 +14,7 @@ import { PhoneIcon } from "@chakra-ui/icons"
 import { ICartItem, useCart } from "../../contexts/cart";
 import { IOrder, IOrderInfo, IOrderItem } from "../../data";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+// import styled from "styled-components";
 
 const CREATE_ORDER_MUTATION = gql`
     mutation CreateOrder($order: OrderInput) {
@@ -25,9 +24,9 @@ const CREATE_ORDER_MUTATION = gql`
         }
     }`
 
-const StyledForm = styled(Form)`
-    width: 100%
-`
+// const StyledForm = styled(Form)`
+//     width: 100%
+// `
 
 export const OrderForm = () => {
     const { items, getTotalAmount, clearItems } = useCart();
@@ -41,12 +40,12 @@ export const OrderForm = () => {
 
   function getOrderData(orderInfo: IOrderInfo): Partial<IOrder> {
     return {
-      info: orderInfo,
       amount: getTotalAmount(),
+      info: orderInfo,
       items: items.map(itm => {
         return {
-          product: itm.product,
-          price: itm.price,
+          productId: itm.product.id,
+          price: itm.product.price,
           quantity: itm.quantity,
           unit: 'Item'
         };
@@ -85,7 +84,7 @@ export const OrderForm = () => {
         onSubmit={onSubmit}
       >
         {(props) => (
-          <StyledForm>
+          <Form>
             <VStack spacing='24px'>
                 <Field name='name' validate={validateName}>
                 {({ field, form }: any) => (
@@ -135,7 +134,7 @@ export const OrderForm = () => {
                 Create Order
               </Button>
             </Center>
-          </StyledForm>
+          </Form>
         )}
       </Formik>
     )

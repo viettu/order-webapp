@@ -1,5 +1,5 @@
 import React, { useReducer, useContext, createContext } from 'react';
-import { IOrderItem, IProduct } from '../../data';
+import { IProduct } from '../../data';
 import { CART_REDUCER_TYPE, ICartItem, ICartStore } from './cart.interface';
 import { cartReducer } from './cart.reducer';
 
@@ -11,7 +11,7 @@ const useCartActions = (initialCart: ICartStore = { items: []}) => {
   const [state, dispatch] = useReducer(cartReducer, initialCart)
 
   const addCartItem = (item: IProduct, quantity = 1) => {
-    dispatch({ type: CART_REDUCER_TYPE.ADD_ITEM, payload: { ...item, quantity } });
+    dispatch({ type: CART_REDUCER_TYPE.ADD_ITEM, payload: { product: {...item}, quantity } });
   };
 
   const removeCartItem = (id: number, quantity = 1) => {
@@ -32,7 +32,7 @@ const useCartActions = (initialCart: ICartStore = { items: []}) => {
   );
 
   const getTotalAmount = () => state.items.reduce(
-    (acc, item) => acc + (item.quantity * item.price),
+    (acc, item) => acc + (item.quantity * item.product.price),
     0
   );
 
