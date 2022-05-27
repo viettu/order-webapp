@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: ms-orders-service
+
+spec: 
+  type: LoadBalancer
+  selector: 
+    service: ms-orders
+
+  ports:
+    - port: 80
+      targetPort: 8001
