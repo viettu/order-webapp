@@ -31,7 +31,7 @@ const addItemToCart = (state: ICartStore, action: ICartReducerAction) => {
   if (!action.payload) {
     return [...state.items];
   }
-  const itemIndex = state.items.findIndex((item) => item.product.id === action.payload?.id);
+  const itemIndex = state.items.findIndex((item) => item.product.id === action.payload?.product?.id);
 
   // If the item exist in the cart, increase the quatity
   if (itemIndex > -1) {

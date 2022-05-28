@@ -8,8 +8,8 @@
     "build": "npx tsc",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "format": "prettier --write \"src/**/*.ts\" && npm run lint",
-    "start": "npm run build && nodemon -q dist/index.js",
-    "start:dev": "concurrently \"npx tsc --watch\" \"kill-port 3200 && nodemon -q dist/index.js\""
+    "start": "nodemon -q dist/src/index.js",
+    "start:dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/src/index.js\""
   },
   "author": "Viet Tu",
   "license": "ISC",

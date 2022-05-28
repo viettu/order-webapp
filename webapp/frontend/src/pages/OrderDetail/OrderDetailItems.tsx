@@ -11,7 +11,7 @@ const OrderDetailItems: React.FC<OrderDetailItemsProps> = ({ items }) => {
   }
 
   const getTotalAmount = () => {
-    return items.reduce((acc, item) => acc + item.quantity * item.product.price, 0);
+    return items.reduce((acc, item) => acc + item.quantity * item.price, 0);
   };
 
   return (
@@ -21,13 +21,13 @@ const OrderDetailItems: React.FC<OrderDetailItemsProps> = ({ items }) => {
           <Image
             w={100}
             h={100}
-            src={`/images/${item.product.image}.png`}
+            src={`/images/${item.productImage}.png`}
             objectFit="cover"
-            alt={item.product.title}
+            alt={item.productTitle}
           ></Image>
           <Flex flex={1} flexWrap={'wrap'} direction={{ base: 'column', md: 'row' }} ml={5}>
             <Box flex={1}>
-              <Text fontWeight={'bold'}>{item.product.title}</Text>
+              <Text fontWeight={'bold'}>{item.productTitle}</Text>
             </Box>
             <Box w={{ base: '200px' }} textAlign={{ base: 'left', md: 'right' }}>
               {item.price}

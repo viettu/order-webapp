@@ -6,7 +6,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   if (process.env.NODE_ENV !== 'production') {
-    console.log(`Connecting to QUEUE ${process.env.RABBITMQ_URL} - ${process.env.RABBITMQ_QUEUE}`);
+    console.log(
+      `Connecting to QUEUE ${process.env.RABBITMQ_URL} - ${process.env.RABBITMQ_QUEUE}`,
+    );
   }
 
   app.connectMicroservice<MicroserviceOptions>({
@@ -15,9 +17,9 @@ async function bootstrap() {
       urls: [process.env.RABBITMQ_URL],
       queue: process.env.RABBITMQ_QUEUE,
       queueOptions: {
-        durable: true
-      }
-    }
+        durable: true,
+      },
+    },
   });
 
   app.startAllMicroservices();

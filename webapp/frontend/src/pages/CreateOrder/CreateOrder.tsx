@@ -14,23 +14,36 @@ import {
   IconButton,
   StackDivider,
   Image,
+  Alert,
+  AlertIcon,
 } from '@chakra-ui/react';
 
 import { DeleteIcon } from '@chakra-ui/icons';
 import { useCart } from '../../contexts/cart';
 import { OrderForm } from './OrderForm';
+import { Link } from 'react-router-dom';
 
 export const CreateOrder: React.FC = () => {
   const { items, getTotalAmount, removeItem, updateQuantity } = useCart();
 
-  const handleItemQuantityChange = (id: number, quantity: number) => {
-    updateQuantity(id, quantity);
-  };
   return (
     <Box>
-      <Heading as="h4" size="md" borderBottom={'1px solid lightgray'} pb={3}>
+      <Heading as="h4" size="md" borderBottom={'1px solid lightgray'} pb={3} mb={5}>
         Shopping Cart
       </Heading>
+
+      {items.length === 0 && (
+        <Alert status="warning">
+          <AlertIcon />
+          Your cart is empty, click
+          <Link to={'/products'}>
+            <Text p={2} as="span" fontSize={'1.2em'} fontWeight="bold" color={'teal'}>
+              here
+            </Text>
+          </Link>{' '}
+          to continue shopping...
+        </Alert>
+      )}
 
       <Flex width={'100%'} direction={{ base: 'column', md: 'row' }}>
         <VStack divider={<StackDivider borderColor="gray.200" />} flex={1} flexWrap={'wrap'}>
@@ -58,7 +71,7 @@ export const CreateOrder: React.FC = () => {
                     min={1}
                     max={100}
                     flex={'none'}
-                    onChange={(valueString) => handleItemQuantityChange(item.product.id, parseInt(valueString))}
+                    onChange={(valueString) => updateQuantity(item.product.id, parseInt(valueString))}
                   >
                     <NumberInputField />
                     <NumberInputStepper>
@@ -68,7 +81,7 @@ export const CreateOrder: React.FC = () => {
                   </NumberInput>
                 </Flex>
                 <Box flex={1} textAlign={{ base: 'left', md: 'right' }}>
-                  {(item.quantity * item.product.price).toFixed(2)}
+                  {item.quantity * item.product.price}
                 </Box>
               </Flex>
               <IconButton
@@ -89,9 +102,11 @@ export const CreateOrder: React.FC = () => {
             </Center>
           </Flex>
         </VStack>
-        <VStack p={5} m={{ base: 0, md: 5 }} border={'1px solid lightgray'} borderRadius={20} w={{ base: 'auto' }}>
-          <OrderForm></OrderForm>
-        </VStack>
+        {items.length > 0 && (
+          <VStack p={5} m={{ base: 0, md: 5 }} border={'1px solid lightgray'} borderRadius={20} w={{ base: 'auto' }}>
+            <OrderForm></OrderForm>
+          </VStack>
+        )}
       </Flex>
     </Box>
   );

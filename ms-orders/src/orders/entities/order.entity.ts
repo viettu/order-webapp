@@ -10,7 +10,7 @@ import {
 import { OrderInfoEntity } from './order-info.entity';
 import { OrderItemEntity } from './order-item.entity';
 
-@Entity("orders")
+@Entity('orders')
 export class OrderEntity {
   @PrimaryGeneratedColumn()
   id: number;

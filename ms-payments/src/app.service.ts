@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-
   /** Get random value in as range */
   getRandomInt(min: number, max: number) {
     min = Math.ceil(min);

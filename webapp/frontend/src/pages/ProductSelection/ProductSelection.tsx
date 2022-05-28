@@ -17,7 +17,7 @@ const MOCK_PRODUCTS = [
 ];
 
 export const ProductSelection: React.FC = () => {
-  const { addItem, items } = useCart();
+  const { addItem } = useCart();
   const data: Array<IProduct> = MOCK_PRODUCTS;
 
   const getItemCart = (product: IProduct) => {

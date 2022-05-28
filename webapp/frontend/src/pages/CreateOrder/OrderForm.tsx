@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import {
   Button,
   FormControl,
@@ -15,76 +15,67 @@ import { Formik, Form, Field, FormikHelpers } from 'formik';
 import { useCart } from '../../contexts/cart';
 import { IOrder, IOrderInfo } from '../../data';
 import { useNavigate } from 'react-router-dom';
-// import styled from "styled-components";
-
-const CREATE_ORDER_MUTATION = gql`
-  mutation CreateOrder($order: OrderInput) {
-    createOrder(order: $order) {
-      id
-      state
-    }
-  }
-`;
-
-// const StyledForm = styled(Form)`
-//     width: 100%
-// `
+import { useEffect } from 'react';
+import { CREATE_ORDER_MUTATION } from '../../data';
+import { useAppRuntime } from '../../contexts/app-runtime';
 
 export const OrderForm = () => {
   const { items, getTotalAmount, clearItems } = useCart();
   const navigate = useNavigate();
 
-  const [createOrder, { loading }] = useMutation(CREATE_ORDER_MUTATION, {
+  const [createOrder, { loading, error }] = useMutation(CREATE_ORDER_MUTATION, {
     onCompleted: ({ createOrder: order }) => {
       navigate(`/order/${order.id}`);
     },
   });
 
-  function getOrderData(orderInfo: IOrderInfo): Partial<IOrder> {
+  const { setIsLoading, setErrorMessage } = useAppRuntime();
+  useEffect(() => {
+    setIsLoading(loading);
+    if (error) {
+      setErrorMessage('Error when creating order');
+    }
+  }, [loading, error]);
+
+  const getOrderData = (orderInfo: IOrderInfo): Partial<IOrder> => {
     return {
       amount: getTotalAmount(),
       info: orderInfo,
       items: items.map((itm) => {
         return {
           productId: itm.product.id,
+          productTitle: itm.product.title,
+          productImage: itm.product.image,
           price: itm.product.price,
           quantity: itm.quantity,
           unit: 'Item',
         };
       }),
     };
-  }
-
-  const validateName = (value: string) => {
-    let error;
-    if (!value) {
-      error = 'Name is required';
-    }
-    return error;
   };
 
   const onSubmit = async (values: any, actions: FormikHelpers<any>) => {
     const orderData = getOrderData(values as IOrderInfo);
     try {
-      const newOrder = await createOrder({
-        variables: {
-          order: orderData,
-        },
-      });
+      await createOrder({ variables: { order: orderData } });
 
       clearItems();
     } catch (err) {
-      // TODO: set error;
+      setErrorMessage('Error when creating order');
     }
     actions.setSubmitting(false);
   };
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <Formik initialValues={{}} onSubmit={onSubmit}>
       {(props) => (
         <Form>
           <VStack spacing="24px">
-            <Field name="name" validate={validateName}>
+            <Field name="name">
               {({ field, form }: any) => (
                 <FormControl isRequired isInvalid={form.errors.fullName && form.touched.fullName}>
                   <FormLabel htmlFor="name">Full name</FormLabel>

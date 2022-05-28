@@ -2,13 +2,16 @@ import { ChakraProvider, theme } from '@chakra-ui/react';
 import { Layout } from './components';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import { CreateOrder, OrderDetail, ProductSelection, OrderList } from './pages';
+import { AppRuntimeProvider } from './contexts/app-runtime';
 
 const AppContainer = () => {
   return (
     <ChakraProvider theme={theme}>
-      <Layout>
-        <Outlet></Outlet>
-      </Layout>
+      <AppRuntimeProvider>
+        <Layout>
+          <Outlet></Outlet>
+        </Layout>
+      </AppRuntimeProvider>
     </ChakraProvider>
   );
 };
@@ -18,7 +21,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<AppContainer />}>
-          <Route path="product-selection" element={<ProductSelection />} />
+          <Route path="products" element={<ProductSelection />} />
           <Route path="cart" element={<CreateOrder />} />
           <Route path="order/:id" element={<OrderDetail />} />
           <Route path="orders" element={<OrderList />} />

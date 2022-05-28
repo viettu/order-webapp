@@ -12,11 +12,7 @@ import { OrdersService } from './orders.service';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forFeature([
-      OrderEntity,
-      OrderItemEntity,
-      OrderInfoEntity
-    ]),
+    TypeOrmModule.forFeature([OrderEntity, OrderItemEntity, OrderInfoEntity]),
     ClientsModule.register([
       {
         name: 'PAYMENTS_SVR',
@@ -25,9 +21,9 @@ import { OrdersService } from './orders.service';
           urls: [process.env.RABBITMQ_URL],
           queue: process.env.RABBITMQ_QUEUE,
           queueOptions: {
-            durable: true
-          }
-        }
+            durable: true,
+          },
+        },
       },
     ]),
     BullModule.registerQueue({
@@ -39,8 +35,11 @@ import { OrdersService } from './orders.service';
 })
 export class OrdersModule {
   onModuleInit() {
-    if(process.env.NODE_ENV !== 'production') {
-      console.log(`Transporter Connection`, `${process.env.RABBITMQ_URL} - ${process.env.RABBITMQ_QUEUE}`);
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(
+        `Transporter Connection`,
+        `${process.env.RABBITMQ_URL} - ${process.env.RABBITMQ_QUEUE}`,
+      );
     }
   }
 }

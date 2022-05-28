@@ -21,7 +21,7 @@ export const Header: React.FC = () => {
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
     >
       <Box p="2">
-        <Link to={'/product-selection'}>
+        <Link to={'/products'}>
           <Heading size="md" color={'teal'}>
             Shooooop
           </Heading>

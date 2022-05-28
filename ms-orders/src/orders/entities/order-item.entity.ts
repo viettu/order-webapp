@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { OrderEntity } from './order.entity';
 
-@Entity("order_items")
+@Entity('order_items')
 export class OrderItemEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -11,6 +11,13 @@ export class OrderItemEntity {
 
   @Column()
   productId: number;
+
+  // for demo purpose, keep product image and product tile directly in the order item
+  @Column()
+  productTitle: string;
+
+  @Column()
+  productImage: string;
 
   @Column()
   price: number;

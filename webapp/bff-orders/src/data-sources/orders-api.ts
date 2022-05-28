@@ -19,20 +19,7 @@ class OrdersApi extends BaseApi implements IOrdersApi {
   }
 
   async getOrder(id: number): Promise<IOrder> {
-    const order: IOrder = await this.getData(`/orders/${id}`);
-
-    // fill product info for items
-    if (order.items && order.items.length > 0) {
-      const productIds = order.items.map((item) => item.productId);
-      const products = await this.productApi.getProductsByIds(productIds);
-
-      order.items.forEach((item) => {
-        const foundProduct = products.find((p) => (p.id = item.productId));
-        item.product = { ...foundProduct };
-      });
-    }
-
-    return order;
+    return this.getData(`/orders/${id}`);
   }
 
   async getOrderState(id: number): Promise<string> {

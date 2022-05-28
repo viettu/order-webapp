@@ -36,7 +36,7 @@ export class AppModule {
         username: `*****`,
         password: `*****`,
         database: process.env.DB_SCHEMA,
-      }
+      };
       console.log(`DB Connection`, dbConnectInfo);
     }
   }

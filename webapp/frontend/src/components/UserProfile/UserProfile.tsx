@@ -33,11 +33,10 @@ export default function UserProfile() {
             </HStack>
           </MenuButton>
           <MenuList fontSize="lg" bg="white" borderColor="gray.200">
-            <MenuItem>Profile</MenuItem>
             <MenuDivider />
-            <MenuItem>
-              <Link to={'/orders'}>Your orders</Link>
-            </MenuItem>
+            <Link to={'/orders'}>
+              <MenuItem>Your orders</MenuItem>
+            </Link>
             <MenuDivider />
             <MenuItem>Sign out</MenuItem>
           </MenuList>

@@ -12,8 +12,9 @@ const typeDefs = gql`
 
   type OrderItem {
     id: Int
-    order: Order
-    product: Product
+    productId: Int
+    productTitle: String
+    productImage: String
     price: Float
     quantity: Int
     unit: String
@@ -21,7 +22,6 @@ const typeDefs = gql`
 
   type OrderInfo {
     id: Int
-    orders: [Order]
     name: String
     address: String
     phone: String
@@ -39,6 +39,8 @@ const typeDefs = gql`
 
   input OrderItemInput {
     productId: Int
+    productTitle: String
+    productImage: String
     price: Float
     quantity: Float
     unit: String

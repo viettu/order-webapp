@@ -5,6 +5,7 @@ export const QUERY_ORDERS = gql`
     getOrders {
       id
       state
+      amount
       entityCreated
       info {
         name

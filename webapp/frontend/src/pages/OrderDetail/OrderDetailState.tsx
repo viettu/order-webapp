@@ -1,6 +1,6 @@
-import { useQuery } from '@apollo/client';
-import { Box } from '@chakra-ui/react';
-import { OrderStates, QUERY_ORDER_STATE } from '../../data';
+import { useMutation, useQuery } from '@apollo/client';
+import { Box, Button, HStack, Spinner, Text } from '@chakra-ui/react';
+import { CANCEL_ORDER_MUTATION, OrderStates, QUERY_ORDER_STATE } from '../../data';
 import { useEffect } from 'react';
 import OrderStateBadge from '../../components/OrderStateBadge/OrderStateBadge';
 
@@ -16,6 +16,10 @@ const OrderDetailState: React.FC<OrderDetailStateProps> = ({ orderId, pollingSta
     fetchPolicy: 'network-only',
   });
 
+  const [cancelOrder] = useMutation(CANCEL_ORDER_MUTATION, {
+    variables: { id: orderId },
+  });
+
   const state = data?.getOrderState;
   useEffect(() => {
     if (state === OrderStates.CANCELLED || state === OrderStates.DELIVERED) {
@@ -28,9 +32,26 @@ const OrderDetailState: React.FC<OrderDetailStateProps> = ({ orderId, pollingSta
   }
 
   return (
-    <Box>
-      <OrderStateBadge state={state} fontSize={'1.2em'}></OrderStateBadge>
-    </Box>
+    <>
+      <Box>
+        <OrderStateBadge state={state} fontSize={'1.2em'}></OrderStateBadge>
+        {state === 'CONFIRMED' && (
+          <Button onClick={() => cancelOrder()} bgColor={'red.300'} size={'sm'} ml={10}>
+            Cancel order
+          </Button>
+        )}
+      </Box>
+
+      {state === 'CONFIRMED' && (
+        <HStack spacing={'10px'} alignItems={'center'} mt={5}>
+          <Spinner size="md" color="teal" />
+          <Text as="span" color={'teal'} fontSize={'0.9em'}>
+            Your order takes 10 seconds for delivering. By clicking "Cancel order" you will cancel your order
+            immediately.
+          </Text>
+        </HStack>
+      )}
+    </>
   );
 };
 

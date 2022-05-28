@@ -10,7 +10,9 @@ export interface IProduct {
 
 export interface IOrderItem {
   id: number;
-  product: IProduct;
+  productId: number;
+  productTitle: string;
+  productImage: string;
   price: number;
   quantity: number;
 }

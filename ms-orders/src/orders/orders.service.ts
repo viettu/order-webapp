@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderStates } from '../share';
 import { Repository } from 'typeorm';
@@ -16,14 +20,12 @@ export class OrdersService {
     private readonly orderItemsRepository: Repository<OrderItemEntity>,
     @InjectRepository(OrderInfoEntity)
     private readonly orderInfoRepository: Repository<OrderInfoEntity>,
-    private readonly ordersPaymentQueueProcessor: OrdersPaymentQueueProcessor
+    private readonly ordersPaymentQueueProcessor: OrdersPaymentQueueProcessor,
   ) {}
 
   async create(orderDto: CreateOrderDto): Promise<OrderEntity> {
-    
     // TODO: should update the validation
     // TODO: transaction?
-
     const orderInfo = new OrderInfoEntity();
     orderInfo.name = orderDto.info.name;
     orderInfo.address = orderDto.info.address;
@@ -32,32 +34,34 @@ export class OrdersService {
 
     const order = new OrderEntity();
     order.state = OrderStates.CREATED;
-    order.amount =  orderDto.amount;
+    order.amount = orderDto.amount;
     order.info = newOrderInfo;
-    const newOrder = await this.ordersRepository.save(order);    
+    const newOrder = await this.ordersRepository.save(order);
 
     const orderItems: OrderItemEntity[] = orderDto.items?.map((e) => {
       const orderItem = new OrderItemEntity();
       orderItem.productId = e.productId;
+      orderItem.productTitle = e.productTitle;
+      orderItem.productImage = e.productImage;
       orderItem.order = order;
       orderItem.price = e.price;
       orderItem.quantity = e.quantity;
       orderItem.unit = e.unit;
       return orderItem;
     });
-    this.orderItemsRepository.save(orderItems)
+    this.orderItemsRepository.save(orderItems);
 
     await this.ordersPaymentQueueProcessor.processPayment(newOrder.id);
-    
+
     return this.getOrder(newOrder.id);
   }
 
   async findAll(): Promise<OrderEntity[]> {
-    return this.ordersRepository.find({ relations: ["items", "info"] });
+    return this.ordersRepository.find({ relations: ['items', 'info'] });
   }
 
   async findOne(id: number): Promise<OrderEntity> {
-    return this.ordersRepository.findOne(id, { relations: ["items", "info"] });
+    return this.ordersRepository.findOne(id, { relations: ['items', 'info'] });
   }
 
   async getOrder(id: number): Promise<OrderEntity> {
@@ -70,8 +74,13 @@ export class OrdersService {
 
   async cancel(id: number): Promise<OrderEntity> {
     const order = await this.getOrder(id);
-    if (order.state !== OrderStates.CREATED && order.state !== OrderStates.CONFIRMED) {
-      throw new BadRequestException(`Unable to cancel an order with state ${order.state}`);
+    if (
+      order.state !== OrderStates.CREATED &&
+      order.state !== OrderStates.CONFIRMED
+    ) {
+      throw new BadRequestException(
+        `Unable to cancel an order with state ${order.state}`,
+      );
     }
 
     order.state = OrderStates.CANCELLED;

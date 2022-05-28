@@ -1,6 +1,8 @@
 export class CreateOrderItemDto {
-    productId: number;
-    price: number;
-    quantity: number;
-    unit: string;
+  productId: number;
+  productTitle: string;
+  productImage: string;
+  price: number;
+  quantity: number;
+  unit: string;
 }
