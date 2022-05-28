@@ -9,7 +9,6 @@ export class OrdersController {
 
   @Post()
   create(@Body() createOrderDto: CreateOrderDto): Promise<OrderEntity> {
-    console.log('recieve', createOrderDto);
     return this.ordersService.create(createOrderDto);
   }
 

@@ -1,4 +1,3 @@
-import { isTypeSystemDefinitionNode } from 'graphql';
 import { IOrder } from 'src/schema';
 import BaseApi from './base-api';
 import ProductsApi from './products-api';
@@ -21,27 +20,16 @@ class OrdersApi extends BaseApi implements IOrdersApi {
 
   async getOrder(id: number): Promise<IOrder> {
     const order: IOrder = await this.getData(`/orders/${id}`);
-    
+
     // fill product info for items
     if (order.items && order.items.length > 0) {
-      const productIds = order.items.map(item => item.productId);
+      const productIds = order.items.map((item) => item.productId);
       const products = await this.productApi.getProductsByIds(productIds);
-      
-      // console.log(products);
-      for(let i = 0; i < order.items.length; i++) {
-        const item = order.items[i];
-        const foundProduct = products.find(p => p.id = item.productId);
-        item.product = {...foundProduct};
-      }
-      // let foundProduct;
-      // order.items = order.items.map(item => {
-      //   foundProduct = products.find(p => p.id = item.productId);
-      //   console.log(`foundItem`, foundProduct);
-      //   const newItem = {...item, product: {...foundProduct}};
-      //   console.log('new item', newItem);
-      //   return newItem;
-      // });
-      // console.log(order.items);
+
+      order.items.forEach((item) => {
+        const foundProduct = products.find((p) => (p.id = item.productId));
+        item.product = { ...foundProduct };
+      });
     }
 
     return order;
@@ -65,4 +53,3 @@ class OrdersApi extends BaseApi implements IOrdersApi {
 }
 
 export default OrdersApi;
-

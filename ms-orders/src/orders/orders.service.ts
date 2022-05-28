@@ -28,9 +28,15 @@ export class OrdersService {
     orderInfo.name = orderDto.info.name;
     orderInfo.address = orderDto.info.address;
     orderInfo.phone = orderDto.info.phone;
-    // const newOrderInfo = await this.orderInfoRepository.save(orderInfo);
+    const newOrderInfo = await this.orderInfoRepository.save(orderInfo);
 
-    const orderItems: OrderItemEntity[] = orderDto?.items.map((e) => {
+    const order = new OrderEntity();
+    order.state = OrderStates.CREATED;
+    order.amount =  orderDto.amount;
+    order.info = newOrderInfo;
+    const newOrder = await this.ordersRepository.save(order);    
+
+    const orderItems: OrderItemEntity[] = orderDto.items?.map((e) => {
       const orderItem = new OrderItemEntity();
       orderItem.productId = e.productId;
       orderItem.order = order;
@@ -39,15 +45,7 @@ export class OrdersService {
       orderItem.unit = e.unit;
       return orderItem;
     });
-
-    const order = new OrderEntity();
-    order.state = OrderStates.CREATED;
-    order.amount =  orderDto.amount;
-    order.info = orderInfo;
-    order.items = orderItems;
-    const newOrder = await this.ordersRepository.save(order);    
-    
-    // await this.ordersRepository.save(order);
+    this.orderItemsRepository.save(orderItems)
 
     await this.ordersPaymentQueueProcessor.processPayment(newOrder.id);
     
@@ -59,8 +57,7 @@ export class OrdersService {
   }
 
   async findOne(id: number): Promise<OrderEntity> {
-    const foundItem = await this.ordersRepository.findOne(id, { relations: ["items", "info"] });
-    return foundItem;
+    return this.ordersRepository.findOne(id, { relations: ["items", "info"] });
   }
 
   async getOrder(id: number): Promise<OrderEntity> {
@@ -73,7 +70,6 @@ export class OrdersService {
 
   async cancel(id: number): Promise<OrderEntity> {
     const order = await this.getOrder(id);
-    // TODO: should convert the state to enums
     if (order.state !== OrderStates.CREATED && order.state !== OrderStates.CONFIRMED) {
       throw new BadRequestException(`Unable to cancel an order with state ${order.state}`);
     }

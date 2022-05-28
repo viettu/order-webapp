@@ -1,7 +1,7 @@
-import { IDatasources } from "src/data-sources";
+import { IDatasources } from 'src/data-sources';
 
 interface IContext {
-  dataSources: IDatasources
+  dataSources: IDatasources;
 }
 
 // TODO: should refactor this with strong type checking

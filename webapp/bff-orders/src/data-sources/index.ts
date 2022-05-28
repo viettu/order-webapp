@@ -8,5 +8,5 @@ export interface IDatasources {
 
 export default () => ({
   OrdersApi: new OrdersApi(),
-  ProductsApi: new ProductsApi()
+  ProductsApi: new ProductsApi(),
 });

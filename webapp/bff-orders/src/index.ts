@@ -18,10 +18,8 @@ const apolloServer = new ApolloServer({
 const PORT = 3200;
 apolloServer.start().then(() => {
   apolloServer.applyMiddleware({ app });
-  
+
   app.listen(PORT, () => {
-    console.log(
-      `GraphQL is listening on port ${PORT}`,
-    );
+    console.log(`GraphQL is listening on port ${PORT}`);
   });
 });

@@ -15,8 +15,9 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('shoule return a value"', () => {
-      expect(appController.getPaymentStatus()).toBeTruthy();
+    it('shoule return CONFIRMED OR DECLINED"', () => {
+      const paymentState = appController.getPaymentStatus();
+      expect(['CONFIRMED', 'DECLINED'].includes(paymentState)).toBeTruthy();
     });
   });
 });

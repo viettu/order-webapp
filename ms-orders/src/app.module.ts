@@ -28,7 +28,7 @@ import { OrdersModule } from './orders/orders.module';
 })
 export class AppModule {
   onModuleInit() {
-    if(process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== 'production') {
       const dbConnectInfo = {
         type: 'mysql',
         host: process.env.DB_HOST,
