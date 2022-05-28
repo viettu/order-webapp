@@ -4,14 +4,14 @@ import { CART_REDUCER_TYPE, ICartItem, ICartStore } from './cart.interface';
 import { cartReducer } from './cart.reducer';
 
 interface CartProviderProps {
-    children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
-const useCartActions = (initialCart: ICartStore = { items: []}) => {
-  const [state, dispatch] = useReducer(cartReducer, initialCart)
+const useCartActions = (initialCart: ICartStore = { items: [] }) => {
+  const [state, dispatch] = useReducer(cartReducer, initialCart);
 
   const addCartItem = (item: IProduct, quantity = 1) => {
-    dispatch({ type: CART_REDUCER_TYPE.ADD_ITEM, payload: { product: {...item}, quantity } });
+    dispatch({ type: CART_REDUCER_TYPE.ADD_ITEM, payload: { product: { ...item }, quantity } });
   };
 
   const removeCartItem = (id: number, quantity = 1) => {
@@ -26,15 +26,9 @@ const useCartActions = (initialCart: ICartStore = { items: []}) => {
     dispatch({ type: CART_REDUCER_TYPE.CLEAR_ITEMS });
   };
 
-  const getItemsCount = () => state.items?.reduce(
-    (acc, item) => acc + item.quantity,
-    0
-  );
+  const getItemsCount = () => state.items?.reduce((acc, item) => acc + item.quantity, 0);
 
-  const getTotalAmount = () => state.items.reduce(
-    (acc, item) => acc + (item.quantity * item.product.price),
-    0
-  );
+  const getTotalAmount = () => state.items.reduce((acc, item) => acc + item.quantity * item.product.price, 0);
 
   return {
     state,
@@ -43,7 +37,7 @@ const useCartActions = (initialCart: ICartStore = { items: []}) => {
     clearCartItems,
     getItemsCount,
     getTotalAmount,
-    updateCartItemQuantity
+    updateCartItemQuantity,
   };
 };
 
@@ -52,30 +46,30 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const cartActions = useCartActions();
 
   return (
-    <CartStore.Provider value={
-      {
+    <CartStore.Provider
+      value={{
         items: cartActions.state.items,
         addItem: cartActions.addCartItem,
         removeItem: cartActions.removeCartItem,
         clearItems: cartActions.clearCartItems,
         getItemsCount: cartActions.getItemsCount,
         getTotalAmount: cartActions.getTotalAmount,
-        updateQuantity: cartActions.updateCartItemQuantity
-      }
-    }>
+        updateQuantity: cartActions.updateCartItemQuantity,
+      }}
+    >
       {children}
     </CartStore.Provider>
-  )
+  );
 };
 
 export interface ICartContext {
   isOpen: boolean;
-  items: Array<ICartItem>
-  addItem: (item: IProduct, quantity?: number) => void
-  removeItem: (id: number, quantity?: number) => void
-  updateQuantity: (id: number, quantity?: number) => void
-  clearItems: () => void
-  getItemsCount: () => number
+  items: Array<ICartItem>;
+  addItem: (item: IProduct, quantity?: number) => void;
+  removeItem: (id: number, quantity?: number) => void;
+  updateQuantity: (id: number, quantity?: number) => void;
+  clearItems: () => void;
+  getItemsCount: () => number;
   getTotalAmount: () => number;
 }
 

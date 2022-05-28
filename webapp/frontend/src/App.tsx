@@ -1,10 +1,7 @@
-import {
-  ChakraProvider,
-  theme,
-} from "@chakra-ui/react"
-import { Layout } from "./components"
+import { ChakraProvider, theme } from '@chakra-ui/react';
+import { Layout } from './components';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
-import { CreateOrder, OrderDetail, ProductSelection, OrderList } from "./pages";
+import { CreateOrder, OrderDetail, ProductSelection, OrderList } from './pages';
 
 const AppContainer = () => {
   return (
@@ -13,7 +10,7 @@ const AppContainer = () => {
         <Outlet></Outlet>
       </Layout>
     </ChakraProvider>
-  )
+  );
 };
 
 const App = () => {
@@ -29,14 +26,14 @@ const App = () => {
         <Route
           path="*"
           element={
-            <main style={{ padding: "1rem" }}>
+            <main style={{ padding: '1rem' }}>
               <p>There's nothing here!</p>
             </main>
           }
         />
       </Routes>
     </BrowserRouter>
-  )
-}
+  );
+};
 
 export default App;
