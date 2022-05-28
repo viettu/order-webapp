@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, Text, VStack, Flex, List, ListItem, Stack, Heading } from '@chakra-ui/react';
 import { IOrder, QUERY_ORDERS } from '../../data';
 import { OrderStateBadge } from '../../components';

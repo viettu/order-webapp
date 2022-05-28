@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, Text, VStack, Flex, Spacer, Center, StackDivider, Image } from '@chakra-ui/react';
 import { IOrderItem } from '../../data';
 

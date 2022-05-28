@@ -1,3 +1,4 @@
+import React from 'react';
 import { TableContainer, Table, Tr, Td, Tbody, Box } from '@chakra-ui/react';
 import { IOrderInfo } from '../../data';
 

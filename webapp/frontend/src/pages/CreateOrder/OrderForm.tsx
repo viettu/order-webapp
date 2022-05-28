@@ -1,3 +1,4 @@
+import React from 'react';
 import { useMutation } from '@apollo/client';
 import {
   Button,
@@ -19,7 +20,7 @@ import { useEffect } from 'react';
 import { CREATE_ORDER_MUTATION } from '../../data';
 import { useAppRuntime } from '../../contexts/app-runtime';
 
-export const OrderForm = () => {
+export const OrderForm: React.FC = () => {
   const { items, getTotalAmount, clearItems } = useCart();
   const navigate = useNavigate();
 

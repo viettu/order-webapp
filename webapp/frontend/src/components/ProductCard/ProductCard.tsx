@@ -1,9 +1,10 @@
+import React from 'react';
 import { Box, IconButton, chakra, Flex, Image } from '@chakra-ui/react';
 import { AiTwotoneStar } from 'react-icons/ai';
 import { IProduct } from '../../data';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
-interface ProductCardProps {
+type ProductCardProps = {
   product: IProduct;
   addItemToCart?: () => void;
 }

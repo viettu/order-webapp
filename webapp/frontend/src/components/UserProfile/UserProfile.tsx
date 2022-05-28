@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Avatar,
   Box,
@@ -14,7 +15,7 @@ import {
 import { FiChevronDown } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-export default function UserProfile() {
+export const UserProfile: React.FC = () => {
   return (
     <HStack spacing={{ base: '0', md: '6' }}>
       <Flex alignItems="center">

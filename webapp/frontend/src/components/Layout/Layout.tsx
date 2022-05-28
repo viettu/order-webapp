@@ -1,9 +1,10 @@
+import React from 'react';
 import { Header } from '../Header/Header';
 import { Box, Center, Flex, Spinner, useToast } from '@chakra-ui/react';
 import { useAppRuntime } from '../../contexts/app-runtime';
 import { useEffect } from 'react';
 
-interface LayoutProps {
+type LayoutProps = {
   children: React.ReactNode;
 }
 

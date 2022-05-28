@@ -1,7 +1,8 @@
+import React from 'react';
 import { Box, Button, HStack, Flex, Heading, Spacer } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../contexts/cart';
-import UserProfile from '../UserProfile/UserProfile';
+import { UserProfile } from '../UserProfile/UserProfile';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 export const Header: React.FC = () => {

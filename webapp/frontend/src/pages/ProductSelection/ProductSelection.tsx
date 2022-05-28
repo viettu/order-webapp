@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, SimpleGrid, Heading } from '@chakra-ui/react';
 import { ProductCard } from '../../components';
 import { useCart } from '../../contexts/cart';

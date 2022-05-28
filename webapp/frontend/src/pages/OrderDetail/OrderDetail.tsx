@@ -1,3 +1,4 @@
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { Box, Heading } from '@chakra-ui/react';
 import { QUERY_ORDER_DETAIL } from '../../data';
@@ -9,7 +10,7 @@ import OrderDetailInfo from './OrderDetailInfo';
 import { useAppRuntime } from '../../contexts/app-runtime';
 import { useEffect } from 'react';
 
-const OrderDetail = () => {
+const OrderDetail: React.FC = () => {
   const { id } = useParams();
   const orderId = parseInt(`${id}`);
 

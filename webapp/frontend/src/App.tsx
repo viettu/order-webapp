@@ -1,3 +1,4 @@
+import React from 'react';
 import { ChakraProvider, theme } from '@chakra-ui/react';
 import { Layout } from './components';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
@@ -16,7 +17,7 @@ const AppContainer = () => {
   );
 };
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>

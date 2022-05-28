@@ -1,3 +1,4 @@
+import React from 'react';
 import { Badge } from '@chakra-ui/react';
 import { OrderStates } from '../../data';
 
@@ -6,7 +7,10 @@ type OrderStateBadgeProps = {
   state: string;
 };
 
-const OrderStateBadge: React.FC<OrderStateBadgeProps> = ({ fontSize, state }) => {
+export const OrderStateBadge: React.FC<OrderStateBadgeProps> = ({
+  fontSize = '1.2em',
+  state 
+}) => {
   return (
     <>
       {state === OrderStates.CREATED && <Badge fontSize={fontSize}>CREATED</Badge>}
@@ -30,8 +34,3 @@ const OrderStateBadge: React.FC<OrderStateBadgeProps> = ({ fontSize, state }) =>
   );
 };
 
-OrderStateBadge.defaultProps = {
-  fontSize: '1.2em',
-};
-
-export default OrderStateBadge;

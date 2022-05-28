@@ -1,8 +1,9 @@
+import React from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { Box, Button, HStack, Spinner, Text } from '@chakra-ui/react';
 import { CANCEL_ORDER_MUTATION, OrderStates, QUERY_ORDER_STATE } from '../../data';
 import { useEffect } from 'react';
-import OrderStateBadge from '../../components/OrderStateBadge/OrderStateBadge';
+import { OrderStateBadge } from '../../components';
 
 type OrderDetailStateProps = {
   orderId: number;
