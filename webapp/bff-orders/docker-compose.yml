@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  bff-orders:
+    build: .
+    image: bff-orders:v1
+    ports:
+      - "3200:3200"

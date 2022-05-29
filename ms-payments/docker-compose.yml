@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  payments-service:
+    build: .
+    image: ms-payments:v1
+    ports:
+      - "8002:8002"

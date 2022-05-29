@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app: ms-orders-dev
+nameSuffix: -prod
+resources:
+  - ../../base
+configMapGenerator:
+  - name: ms-orders-configmap
+    behavior: replace
+    literals:
+      - NODE_ENV="production"
+      - DB_HOST="mydb.c0rpbzb5tvzy.ap-southeast-1.rds.amazonaws.com"
+      - DB_PORT="3306"
+      - DB_SCHEMA="test"
+      - RABBITMQ_QUEUE="test"
+secretGenerator:
+  - name: mysql-secret
+    literals:
+      - DB_USERNAME="admin"
+      - DB_PASSWORD="V16#u123"
+  - name: rabbitmq-secret
+    literals:
+      - RABBITMQ_URL="amqps://saoipjon:ukZdlmTUqwxSBn8RoeWA4XdWxRFUfgfS@armadillo.rmq.cloudamqp.com/saoipjon"

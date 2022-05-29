@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  orders-service:
+    build: .
+    image: ms-orders:v1
+    ports:
+      - "8001:8001"

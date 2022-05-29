@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-payments-deployment
+  labels:
+    app: ms-payments
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-payments
+  template:
+    metadata:
+      labels:
+        app: ms-payments
+    spec:
+      containers:
+        - name: ms-payments
+          image: ms-payments:v1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8002
+          envFrom:
+            - configMapRef:
+                name: ms-payments-configmap
+          env:
+            - name: RABBITMQ_URL
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secret
+                  key: RABBITMQ_URL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-payments-service
+  labels:
+    app: ms-payments
+spec: 
+  type: ClusterIP
+  selector: 
+    app: ms-payments
+  ports:
+    - port: 8002
+      targetPort: 8002

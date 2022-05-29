@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app: ms-payments-dev
+nameSuffix: -dev
+resources:
+  - ../../base
+configMapGenerator:
+  - name: ms-payments-configmap
+    behavior: replace
+    literals:
+      - NODE_ENV="development"
+      - RABBITMQ_QUEUE="test"
+secretGenerator:
+  - name: rabbitmq-secret
+    literals:
+      - RABBITMQ_URL="amqp://admin:admin@localhost:5672"

@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ms-orders.yaml
+configMapGenerator:
+  - name: ms-orders-configmap
+    literals:
+      - NODE_ENV="development"
+      - DB_HOST="localhost"
+      - DB_PORT="3306"
+      - RABBITMQ_QUEUE="test"

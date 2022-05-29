@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bff-orders-deployment
+  labels:
+    app: bff-orders
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bff-orders
+  template:
+    metadata:
+      labels:
+        app: bff-orders
+    spec:
+      containers:
+        - name: bff-orders
+          image: bff-orders:v1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8001
+          envFrom:
+            - configMapRef:
+                name: bff-orders-configmap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bff-orders-service
+  labels:
+    app: bff-orders
+spec: 
+  type: ClusterIP
+  selector: 
+    app: bff-orders
+  ports:
+    - port: 3200
+      targetPort: 3200
