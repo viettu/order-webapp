@@ -1,9 +1,15 @@
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import getLogLevels from './share/utilities';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: getLogLevels(process.env.NODE_ENV === 'production')
+  });
+
+  // Swagger setup
   const config = new DocumentBuilder()
     .setTitle('Orders api')
     .setDescription('The cats API description')
@@ -15,7 +21,8 @@ async function bootstrap() {
 
   const PORT = 8001;
   await app.listen(PORT, () => {
-    console.log(`Orders microservice is listening on port ${PORT}`);
+    const logger = new Logger('App bootstrap');
+    logger.log(`Orders microservice is listening on port ${PORT}`);
   });
 }
 bootstrap();

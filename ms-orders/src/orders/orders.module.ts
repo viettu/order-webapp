@@ -1,5 +1,5 @@
 import { BullModule } from '@nestjs/bull';
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -34,9 +34,10 @@ import { OrdersService } from './orders.service';
   controllers: [OrdersController],
 })
 export class OrdersModule {
+  private readonly logger = new Logger(OrdersModule.name);
   onModuleInit() {
     if (process.env.NODE_ENV !== 'production') {
-      console.log(
+      this.logger.log(
         `Transporter Connection`,
         `${process.env.RABBITMQ_URL} - ${process.env.RABBITMQ_QUEUE}`,
       );

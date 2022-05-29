@@ -1,5 +1,5 @@
 import { BullModule } from '@nestjs/bull';
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrdersModule } from './orders/orders.module';
@@ -27,6 +27,7 @@ import { OrdersModule } from './orders/orders.module';
   ],
 })
 export class AppModule {
+  private readonly logger = new Logger(AppModule.name);
   onModuleInit() {
     if (process.env.NODE_ENV !== 'production') {
       const dbConnectInfo = {
@@ -37,7 +38,7 @@ export class AppModule {
         password: `*****`,
         database: process.env.DB_SCHEMA,
       };
-      console.log(`DB Connection`, dbConnectInfo);
+      this.logger.log(`DB Connection`, dbConnectInfo);
     }
   }
 }

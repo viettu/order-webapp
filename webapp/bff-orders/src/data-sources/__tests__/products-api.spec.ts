@@ -14,24 +14,24 @@ describe('ProductAPI', () => {
 
   it('getProductsByIds', async () => {
     const products = await productsApi.getProductsByIds([1, 2]);
-    expect(products).toEqual([
-      {
+    expect(products).toEqual({
+      '1': {
         id: 1,
-        title: 'AIR 1',
         image: 'air1',
         price: 100,
         reviewCount: 50,
         score: 3,
+        title: 'AIR 1',
       },
-      {
+      '2': {
         id: 2,
-        title: 'AIR 2',
         image: 'air2',
         price: 150,
         reviewCount: 66,
         score: 4,
+        title: 'AIR 2',
       },
-    ]);
+    });
   });
 
   it('getProduct', async () => {
