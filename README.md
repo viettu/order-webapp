@@ -42,11 +42,8 @@ This allows to create orders, cancel an order, list orders and view order detail
 ### 2. Microservice orders ( ms-orders )
 Provides APIs for update creating, updating retrieving orders
 
-- GET /orders - get all orders
-- GET /orders/:id - get order by id
-- GET /orders/:id/state - get current state
-- POST /orders - create a new order
-- POST orders/:id - cancel an order
+![image](https://user-images.githubusercontent.com/6614651/170871051-5f1915e6-cd89-453d-b3ae-9a41b2f4406b.png)
+
 
 #### 2.1 Design
 1. Use RabbitMQ QUEUE to keep meesages from ms-orders and then consumed by ms-payments. This helps decouple services
@@ -70,7 +67,7 @@ Then we can start the service
 ```sh
 npm run start:dev
 ```
-After this command, the service will listen on PORT 8001
+After this command, the service will listen on PORT 8001 and the swagger is available at http://localhost:8001/orders-api/
 
 #### 2.3 Deployment
 We can simulate deploying the service to K8s minikube. This requires minikube, kubectl and kustomize pre-installed.<br/>
