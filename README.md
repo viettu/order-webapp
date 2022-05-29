@@ -1,10 +1,12 @@
 # Full stack Engineer practical
+
 ## Introduction
 The code is structured into four projects that can deploy separately
-- Web application for making or reviewing Orders
-- BFF (Graphql) for retrieving data from microservice orders
-- Orders microservice provides APIs for creating, updating and retriving orders
-- Payments microservice recieves orders from order microservice and return an payment decision
+1. [Web application](#1-web-application) for making or reviewing Orders
+2. [Orders microservice](#2-microservice-orders--ms-orders-) provides APIs for creating, updating and retriving orders
+3. [Payments microservice](#3-microservice-payments--ms-payments-) recieves orders from order microservice and return an payment decision
+4. [BFF (Graphql)](#4-bff-orders--bff-orders-) for retrieving data from microservice orders
+
 
 ## Technical stack
 - Typescript
@@ -16,7 +18,7 @@ The code is structured into four projects that can deploy separately
 - AWS RDS MySQL
 - Jest for unit testing
 
-### 1. Web client portal
+### 1. Web application
 Client portal for interacting with service api<br/>
 This allows to create orders, cancel an order, list orders and view order detail
 
