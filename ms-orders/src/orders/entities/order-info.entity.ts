@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { OrderEntity } from './order.entity';
 
@@ -10,11 +11,14 @@ export class OrderInfoEntity {
   orders: OrderEntity[];
 
   @Column()
+  @ApiProperty({ description: 'Full name' })
   name: string;
 
   @Column()
+  @ApiProperty({ description: 'Residental address' })
   address: string;
 
   @Column()
+  @ApiProperty({ description: 'Mobile or home phone number' })
   phone: string;
 }

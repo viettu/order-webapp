@@ -24,8 +24,6 @@ export class OrdersService {
   ) {}
 
   async create(orderDto: CreateOrderDto): Promise<OrderEntity> {
-    // TODO: should update the validation
-    // TODO: transaction?
     const orderInfo = new OrderInfoEntity();
     orderInfo.name = orderDto.info.name;
     orderInfo.address = orderDto.info.address;
