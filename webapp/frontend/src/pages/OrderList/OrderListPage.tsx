@@ -64,7 +64,7 @@ const OrderList: React.FC = () => {
               <Flex direction={'row'} w={'100%'} display={{ base: 'none', md: 'flex' }}>
                 <Box>
                   <Text as={'span'} fontWeight="bold">{`Amount: `}</Text>
-                  <Text as={'span'}>{order.amount}</Text>
+                  <Text as={'span'}>${order.amount}</Text>
                 </Box>
               </Flex>
               <Flex direction={'row'} w={'100%'}>

@@ -31,13 +31,13 @@ const OrderDetailItems: React.FC<OrderDetailItemsProps> = ({ items }) => {
               <Text fontWeight={'bold'}>{item.productTitle}</Text>
             </Box>
             <Box w={{ base: '200px' }} textAlign={{ base: 'left', md: 'right' }}>
-              {item.price}
+              ${item.price}
             </Box>
             <Box w={{ base: '200px' }} textAlign={{ base: 'left', md: 'right' }}>
               {item.quantity}
             </Box>
             <Box w={{ base: '200px' }} textAlign={{ base: 'left', md: 'right' }}>
-              {(item.quantity * item.price).toFixed(2)}
+              ${(item.quantity * item.price)}
             </Box>
           </Flex>
         </Flex>
@@ -47,7 +47,7 @@ const OrderDetailItems: React.FC<OrderDetailItemsProps> = ({ items }) => {
         <Center>
           <Text fontSize="xl">Order Total:</Text>
           <Text fontSize="xl" ml={3} fontWeight={'bold'}>
-            {getTotalAmount()}
+            ${getTotalAmount()}
           </Text>
         </Center>
       </Flex>

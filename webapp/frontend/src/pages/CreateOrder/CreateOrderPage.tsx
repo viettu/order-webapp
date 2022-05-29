@@ -79,7 +79,7 @@ export const CreateOrder: React.FC = () => {
                   </NumberInput>
                 </Flex>
                 <Box flex={1} textAlign={{ base: 'left', md: 'right' }}>
-                  {item.quantity * item.product.price}
+                  ${item.quantity * item.product.price}
                 </Box>
               </Flex>
               <IconButton

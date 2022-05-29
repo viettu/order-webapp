@@ -24,7 +24,7 @@ export const OrderStateBadge: React.FC<OrderStateBadgeProps> = ({ fontSize = '1.
       {state === OrderStates.DELIVERED && (
         <Badge fontSize={fontSize} colorScheme="purple">
           {' '}
-          DELIVERE
+          DELIVERED
         </Badge>
       )}
     </>
