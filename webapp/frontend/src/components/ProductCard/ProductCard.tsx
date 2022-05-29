@@ -7,7 +7,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 type ProductCardProps = {
   product: IProduct;
   addItemToCart?: () => void;
-}
+};
 
 const ChakraStar = chakra(AiTwotoneStar);
 export const ProductCard: React.FC<ProductCardProps> = ({ product, addItemToCart }) => {

@@ -7,10 +7,7 @@ type OrderStateBadgeProps = {
   state: string;
 };
 
-export const OrderStateBadge: React.FC<OrderStateBadgeProps> = ({
-  fontSize = '1.2em',
-  state 
-}) => {
+export const OrderStateBadge: React.FC<OrderStateBadgeProps> = ({ fontSize = '1.2em', state }) => {
   return (
     <>
       {state === OrderStates.CREATED && <Badge fontSize={fontSize}>CREATED</Badge>}
@@ -33,4 +30,3 @@ export const OrderStateBadge: React.FC<OrderStateBadgeProps> = ({
     </>
   );
 };
-

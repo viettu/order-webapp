@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text, VStack, Flex, List, ListItem, Stack, Heading } from '@chakra-ui/react';
 import { IOrder, QUERY_ORDERS } from '../../data';
-import { OrderStateBadge } from '../../components';
+import { AppContainer, OrderStateBadge } from '../../components';
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { useAppRuntime } from '../../contexts/app-runtime';
@@ -24,16 +24,13 @@ const OrderList: React.FC = () => {
   }
 
   const formatDate = (dateIso: string): string => {
-    return dateIso.substring(0, 10).split('-').join('');
+    return dateIso?.substring(0, 10).split('-').join('');
   };
 
   const orders = (data?.getOrders as Array<IOrder>) || [];
 
   return (
     <>
-      <Heading as="h4" size="md" borderBottom={'1px solid lightgray'} pb={3} mb={5}>
-        List of orders
-      </Heading>
       <List spacing={5}>
         {orders.map((order) => (
           <ListItem
@@ -53,14 +50,14 @@ const OrderList: React.FC = () => {
                 <Stack direction={'row'} spacing={'50px'}>
                   <Box>
                     <Text as={'span'} fontWeight="bold">{`Order Nr: `}</Text>
-                    <Text as={'span'}>{`${order.entityCreated.substring(0, 10).split('-').join('')}#${order.id}`}</Text>
+                    <Text as={'span'}>{`${order.entityCreated?.substring(0, 10).split('-').join('')}#${order.id}`}</Text>
                   </Box>
                   <Box>
                     <OrderStateBadge state={order.state} fontSize={'0.8em'}></OrderStateBadge>
                   </Box>
                   <Box>
                     <Text as={'span'} fontWeight="bold">{`Created: `}</Text>
-                    <Text as={'span'}>{order.entityCreated.substring(0, 10)}</Text>
+                    <Text as={'span'}>{order.entityCreated?.substring(0, 10)}</Text>
                   </Box>
                 </Stack>
               </Flex>
@@ -73,7 +70,7 @@ const OrderList: React.FC = () => {
               <Flex direction={'row'} w={'100%'}>
                 <Box>
                   <Text as={'span'} fontWeight="bold">{`Name: `}</Text>
-                  <Text as={'span'}>{`${formatDate(order.info.name)}`}</Text>
+                  <Text as={'span'}>{`${formatDate(order.info?.name)}`}</Text>
                 </Box>
               </Flex>
             </VStack>
@@ -84,4 +81,8 @@ const OrderList: React.FC = () => {
   );
 };
 
-export default OrderList;
+export const OrderListPage: React.FC = () => (
+  <AppContainer heading='List of orders'>
+    <OrderList></OrderList>
+  </AppContainer>
+);

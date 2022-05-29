@@ -75,7 +75,7 @@ export const OrderForm: React.FC = () => {
     <Formik initialValues={{}} onSubmit={onSubmit}>
       {(props) => (
         <Form>
-          <VStack spacing="24px">
+          <VStack spacing="24px" w={'100%'}>
             <Field name="name">
               {({ field, form }: any) => (
                 <FormControl isRequired isInvalid={form.errors.fullName && form.touched.fullName}>

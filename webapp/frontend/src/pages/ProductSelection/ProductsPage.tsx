@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, SimpleGrid, Heading } from '@chakra-ui/react';
-import { ProductCard } from '../../components';
+import { AppContainer, ProductCard } from '../../components';
 import { useCart } from '../../contexts/cart';
 import { IProduct } from '../../data';
 
@@ -17,7 +17,7 @@ const MOCK_PRODUCTS = [
   { id: 10, title: 'TALENT 2', image: 'talent2', price: 470, reviewCount: 83, score: 5 },
 ];
 
-export const ProductSelection: React.FC = () => {
+const Products: React.FC = () => {
   const { addItem } = useCart();
   const data: Array<IProduct> = MOCK_PRODUCTS;
 
@@ -26,10 +26,7 @@ export const ProductSelection: React.FC = () => {
   };
 
   return (
-    <Box>
-      <Heading as="h4" size="md" borderBottom={'1px solid lightgray'} pb={3}>
-        Product selection
-      </Heading>
+    <>
       <SimpleGrid mt="4" minChildWidth="250px" spacing="2em" minH="full">
         {data.map((product, i) => (
           <Box key={i}>
@@ -37,6 +34,12 @@ export const ProductSelection: React.FC = () => {
           </Box>
         ))}
       </SimpleGrid>
-    </Box>
+    </>
   );
 };
+
+export const ProductsPage: React.FC = () => (
+  <AppContainer heading='Product selection'>
+    <Products></Products>
+  </AppContainer>
+);

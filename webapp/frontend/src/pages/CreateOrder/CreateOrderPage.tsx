@@ -23,16 +23,13 @@ import { DeleteIcon } from '@chakra-ui/icons';
 import { useCart } from '../../contexts/cart';
 import { OrderForm } from './OrderForm';
 import { Link } from 'react-router-dom';
+import { AppContainer } from '../../components';
 
 export const CreateOrder: React.FC = () => {
   const { items, getTotalAmount, removeItem, updateQuantity } = useCart();
 
   return (
-    <Box>
-      <Heading as="h4" size="md" borderBottom={'1px solid lightgray'} pb={3} mb={5}>
-        Shopping Cart
-      </Heading>
-
+    <>
       {items.length === 0 && (
         <Alert status="warning">
           <AlertIcon />
@@ -109,6 +106,12 @@ export const CreateOrder: React.FC = () => {
           </VStack>
         )}
       </Flex>
-    </Box>
+    </>
   );
 };
+
+export const CreateOrderPage: React.FC = () => (
+  <AppContainer heading='Shopping Cart'>
+    <CreateOrder></CreateOrder>
+  </AppContainer>
+);

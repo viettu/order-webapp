@@ -1,32 +1,16 @@
 import React from 'react';
-import { ChakraProvider, theme } from '@chakra-ui/react';
-import { Layout } from './components';
-import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
-import { CreateOrder, OrderDetail, ProductSelection, OrderList } from './pages';
-import { AppRuntimeProvider } from './contexts/app-runtime';
-
-const AppContainer = () => {
-  return (
-    <ChakraProvider theme={theme}>
-      <AppRuntimeProvider>
-        <Layout>
-          <Outlet></Outlet>
-        </Layout>
-      </AppRuntimeProvider>
-    </ChakraProvider>
-  );
-};
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { CreateOrderPage, OrderDetailPage, ProductsPage, OrderListPage } from './pages';
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<AppContainer />}>
-          <Route path="products" element={<ProductSelection />} />
-          <Route path="cart" element={<CreateOrder />} />
-          <Route path="order/:id" element={<OrderDetail />} />
-          <Route path="orders" element={<OrderList />} />
-        </Route>
+        <Route path="/" element={<ProductsPage />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/cart" element={<CreateOrderPage />} />
+        <Route path="/order/:id" element={<OrderDetailPage />} />
+        <Route path="/orders" element={<OrderListPage />} />
         <Route
           path="*"
           element={

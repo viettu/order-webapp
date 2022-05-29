@@ -1,8 +1,5 @@
-import { default as OrderDetail } from './OrderDetail/OrderDetail';
-import { default as OrderList } from './OrderList/OrderList';
-
-export * from './CreateOrder/CreateOrder';
-export * from './ProductSelection/ProductSelection';
-export * from './OrderDetail/OrderDetail';
-
-export { OrderDetail, OrderList };
+export * from './CreateOrder/CreateOrderPage';
+export * from './ProductSelection/ProductsPage';
+export * from './OrderDetail/OrderDetailPage';
+export * from './OrderList/OrderListPage';
+export * from './OrderDetail/OrderDetailPage';

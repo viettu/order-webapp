@@ -16,7 +16,6 @@ services:
   redis:
     image: "bitnami/redis:latest"
     environment:
-      # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
       - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
     labels:
@@ -29,32 +28,3 @@ services:
 volumes:
   redis_data:
     driver: local
-
-  # orders-service:
-  #   build: ./ms-orders
-  #   image: ms-orders:v1
-  #   ports:
-  #     - "8001:8001"
-  #   environment:
-  #     - DB_HOST=mydb.c0rpbzb5tvzy.ap-southeast-1.rds.amazonaws.com
-  #     - DB_PORT=3306
-  #     - DB_SCHEMA=test
-  #     - DB_USERNAME=admin
-  #     - DB_PASSWORD=V16#u123
-  #     - RABBITMQ_URL=amqps://saoipjon:ukZdlmTUqwxSBn8RoeWA4XdWxRFUfgfS@armadillo.rmq.cloudamqp.com/saoipjon
-  #     - RABBITMQ_QUEUE=test
-
-  # bff:
-  #   build: ./webapp/server
-  #   image: bff:v1
-  #   ports:
-  #     - "3200:3200"
-  #   environment:
-  #     - ORDERS_SERVICE_URL=http://localhost:8001
-
-
-# networks:
-#   front-tier:
-#   back-tier:
-
-# ORDERS_SERVICE_URL=http://127.0.0.1:8001

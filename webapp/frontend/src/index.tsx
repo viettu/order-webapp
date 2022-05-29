@@ -5,8 +5,10 @@ import { CartProvider } from './contexts/cart';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 
+const GRAPHQL_URL = 'http://localhost:3200/graphql';
+
 const client = new ApolloClient({
-  uri: 'http://localhost:3200/graphql',
+  uri: GRAPHQL_URL,
   cache: new InMemoryCache(),
 });
 

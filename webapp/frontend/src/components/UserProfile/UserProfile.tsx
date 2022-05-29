@@ -45,4 +45,4 @@ export const UserProfile: React.FC = () => {
       </Flex>
     </HStack>
   );
-}
+};
