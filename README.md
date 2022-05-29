@@ -38,6 +38,19 @@ This allows to create orders, cancel an order, list orders and view order detail
 - 5. List of orders
 <img width="1502" alt="image" src="https://user-images.githubusercontent.com/6614651/170859089-e541e8a2-932e-4156-bb09-53d151f348e3.png">
 
+#### 1.2 Installation
+
+Install the dependencies and devDependencies and start the server.
+```sh
+cd webapp/frontend
+npm i
+npm run start
+```
+
+#### 1.3 Thing should be improved next time
+- Adding unit testings
+- UI consistency
+<br/>
 
 ### 2. Microservice orders ( ms-orders )
 Provides APIs for update creating, updating retrieving orders
@@ -84,6 +97,12 @@ eval $(minikube docker-env)
 docker build . -t ms-orders:v1
 ```
 
+#### 2.4 Thing should be improved next time
+- Should implement error management
+- The validations could be done better
+- ...
+<br/>
+
 ### 3. Microservice payments ( ms-payments )
 Consume the RabbitMQ queue and send the decision CONFIRMED or DECLINED to ms-orders
 
@@ -110,6 +129,7 @@ Install docker image to minikube manually
 eval $(minikube docker-env)
 docker build . -t ms-payments:v1
 ```
+<br/>
 
 ### 4. BFF orders ( bff-orders )
 This service get data from ms-orders than provide the graphQl to be called from UI
