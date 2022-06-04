@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot 1`] = `
+Array [
+  <div
+    className="chakra-stack css-1vr2anf"
+  >
+    <div
+      className="css-1orwh6x"
+    >
+      <img
+        alt="AIR"
+        className="chakra-image css-b471h5"
+        src="/images/air.png"
+      />
+      <div
+        className="css-111yils"
+      >
+        <div
+          className="css-1rr4qq7"
+        >
+          <p
+            className="chakra-text css-722v25"
+          >
+            AIR
+          </p>
+        </div>
+        <div
+          className="css-1b81pbg"
+        >
+          $
+          500
+        </div>
+        <div
+          className="css-1b81pbg"
+        >
+          5
+        </div>
+        <div
+          className="css-1b81pbg"
+        >
+          $
+          2500
+        </div>
+      </div>
+    </div>
+    <div
+      className="chakra-stack__divider css-1vk75av"
+    />
+    <div
+      className="css-13jd5f3"
+    >
+      <div
+        className="css-17xejub"
+      />
+      <div
+        className="css-gmuwbf"
+      >
+        <p
+          className="chakra-text css-mcpu91"
+        >
+          Order Total:
+        </p>
+        <p
+          className="chakra-text css-37vpel"
+        >
+          $
+          2500
+        </p>
+      </div>
+    </div>
+  </div>,
+  <span />,
+  <span
+    className="chakra-env"
+    hidden={true}
+  />,
+]
+`;

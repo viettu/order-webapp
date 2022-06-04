@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, SimpleGrid, Heading } from '@chakra-ui/react';
+import { Box, SimpleGrid } from '@chakra-ui/react';
 import { AppContainer, ProductCard } from '../../components';
 import { useCart } from '../../contexts/cart';
 import { IProduct } from '../../data';
@@ -17,7 +17,7 @@ const MOCK_PRODUCTS = [
   { id: 10, title: 'TALENT 2', image: 'talent2', price: 470, reviewCount: 83, score: 5 },
 ];
 
-const Products: React.FC = () => {
+export const ProductsPage: React.FC = () => {
   const { addItem } = useCart();
   const data: Array<IProduct> = MOCK_PRODUCTS;
 
@@ -26,7 +26,7 @@ const Products: React.FC = () => {
   };
 
   return (
-    <>
+    <AppContainer heading="Product selection">
       <SimpleGrid mt="4" minChildWidth="250px" spacing="2em" minH="full">
         {data.map((product, i) => (
           <Box key={i}>
@@ -34,12 +34,6 @@ const Products: React.FC = () => {
           </Box>
         ))}
       </SimpleGrid>
-    </>
+    </AppContainer>
   );
 };
-
-export const ProductsPage: React.FC = () => (
-  <AppContainer heading='Product selection'>
-    <Products></Products>
-  </AppContainer>
-);

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot 1`] = `
+Array [
+  <div
+    className="css-0"
+  />,
+  <span />,
+  <span
+    className="chakra-env"
+    hidden={true}
+  />,
+]
+`;

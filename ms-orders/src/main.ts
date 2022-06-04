@@ -12,7 +12,7 @@ async function bootstrap() {
   // Swagger setup
   const config = new DocumentBuilder()
     .setTitle('Orders api')
-    .setDescription('The cats API description')
+    .setDescription('API for orders')
     .setVersion('1.0')
     .addTag('orders-api')
     .build();

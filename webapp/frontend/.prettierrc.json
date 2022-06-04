@@ -2,19 +2,5 @@
     "useTabs": false,
     "printWidth": 120,
     "tabWidth": 2,
-    "singleQuote": true,
-    "overrides": [
-        {
-            "files": "*.md",
-            "options": {
-                "tabWidth": 1
-            }
-        },
-        {
-            "files": "*.yml",
-            "options": {
-                "tabWidth": 2
-            }
-        }
-    ]
+    "singleQuote": true
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, VStack, Flex, List, ListItem, Stack, Heading } from '@chakra-ui/react';
+import { Box, Text, VStack, Flex, List, ListItem, Stack } from '@chakra-ui/react';
 import { IOrder, QUERY_ORDERS } from '../../data';
 import { AppContainer, OrderStateBadge } from '../../components';
 import { useQuery } from '@apollo/client';
@@ -7,11 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import { useAppRuntime } from '../../contexts/app-runtime';
 import { useEffect } from 'react';
 
-const OrderList: React.FC = () => {
+export const OrderListPage: React.FC = () => {
   const { data, loading, error } = useQuery(QUERY_ORDERS);
   const navigate = useNavigate();
-
   const { setIsLoading, setErrorMessage } = useAppRuntime();
+
   useEffect(() => {
     setIsLoading(loading);
     if (error) {
@@ -30,7 +30,7 @@ const OrderList: React.FC = () => {
   const orders = (data?.getOrders as Array<IOrder>) || [];
 
   return (
-    <>
+    <AppContainer heading="List of orders">
       <List spacing={5}>
         {orders.map((order) => (
           <ListItem
@@ -50,7 +50,9 @@ const OrderList: React.FC = () => {
                 <Stack direction={'row'} spacing={'50px'}>
                   <Box>
                     <Text as={'span'} fontWeight="bold">{`Order Nr: `}</Text>
-                    <Text as={'span'}>{`${order.entityCreated?.substring(0, 10).split('-').join('')}#${order.id}`}</Text>
+                    <Text as={'span'}>{`${order.entityCreated?.substring(0, 10).split('-').join('')}#${
+                      order.id
+                    }`}</Text>
                   </Box>
                   <Box>
                     <OrderStateBadge state={order.state} fontSize={'0.8em'}></OrderStateBadge>
@@ -77,12 +79,6 @@ const OrderList: React.FC = () => {
           </ListItem>
         ))}
       </List>
-    </>
+    </AppContainer>
   );
 };
-
-export const OrderListPage: React.FC = () => (
-  <AppContainer heading='List of orders'>
-    <OrderList></OrderList>
-  </AppContainer>
-);

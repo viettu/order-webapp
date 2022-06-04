@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot - CANCELLED 1`] = `
+Array [
+  <span
+    className="chakra-badge css-1j2zy3h"
+  >
+    CANCELLED
+  </span>,
+  <span />,
+  <span
+    className="chakra-env"
+    hidden={true}
+  />,
+]
+`;
+
+exports[`snapshot - CREATED 1`] = `
+Array [
+  <span
+    className="chakra-badge css-pst2fr"
+  >
+    CREATED
+  </span>,
+  <span />,
+  <span
+    className="chakra-env"
+    hidden={true}
+  />,
+]
+`;
+
+exports[`snapshot - DELIVERED 1`] = `
+Array [
+  <span
+    className="chakra-badge css-70togv"
+  >
+     
+    DELIVERED
+  </span>,
+  <span />,
+  <span
+    className="chakra-env"
+    hidden={true}
+  />,
+]
+`;

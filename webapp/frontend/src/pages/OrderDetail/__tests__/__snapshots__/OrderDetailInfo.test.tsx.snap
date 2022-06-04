@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot 1`] = `
+Array [
+  <div
+    className="css-ydi3wo"
+  >
+    <div
+      className="chakra-table__container css-zipzvv"
+    >
+      <table
+        className="chakra-table css-5605sr"
+        role="table"
+      >
+        <tbody
+          className="css-0"
+        >
+          <tr
+            className="css-0"
+            role="row"
+          >
+            <td
+              className="css-pb2ry3"
+              role="gridcell"
+            >
+              Name:
+            </td>
+            <td
+              className="css-1hwcto5"
+              role="gridcell"
+            >
+              Viet Tu
+            </td>
+          </tr>
+          <tr
+            className="css-0"
+            role="row"
+          >
+            <td
+              className="css-p9na44"
+              role="gridcell"
+            >
+              Phone:
+            </td>
+            <td
+              className="css-1hwcto5"
+              role="gridcell"
+            >
+              09090909
+            </td>
+          </tr>
+          <tr
+            className="css-0"
+            role="row"
+          >
+            <td
+              className="css-p9na44"
+              role="gridcell"
+            >
+              Address:
+            </td>
+            <td
+              className="css-1hwcto5"
+              role="gridcell"
+            >
+              Address
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>,
+  <span />,
+  <span
+    className="chakra-env"
+    hidden={true}
+  />,
+]
+`;

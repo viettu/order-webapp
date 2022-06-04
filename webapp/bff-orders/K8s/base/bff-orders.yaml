@@ -19,7 +19,7 @@ spec:
           image: bff-orders:v1
           imagePullPolicy: Never
           ports:
-            - containerPort: 8001
+            - containerPort: 3200
           envFrom:
             - configMapRef:
                 name: bff-orders-configmap

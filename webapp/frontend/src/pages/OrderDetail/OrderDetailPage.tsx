@@ -10,7 +10,7 @@ import { useAppRuntime } from '../../contexts/app-runtime';
 import { useEffect } from 'react';
 import { AppContainer } from '../../components';
 
-const OrderDetail: React.FC = () => {
+export const OrderDetailPage: React.FC = () => {
   const { id } = useParams();
   const orderId = parseInt(`${id}`);
 
@@ -32,7 +32,7 @@ const OrderDetail: React.FC = () => {
   }
 
   return (
-    <>
+    <AppContainer heading="Order Details">
       {data && <OrderDetailInfo orderInfo={data.getOrder?.info}></OrderDetailInfo>}
 
       <Heading as="h4" size="md" mt={10}>
@@ -44,12 +44,6 @@ const OrderDetail: React.FC = () => {
         Order items
       </Heading>
       {data && <OrderDetailItems items={data.getOrder?.items}></OrderDetailItems>}
-    </>
+    </AppContainer>
   );
 };
-
-export const OrderDetailPage: React.FC = () => (
-  <AppContainer heading='Order Details'>
-    <OrderDetail></OrderDetail>
-  </AppContainer>
-);

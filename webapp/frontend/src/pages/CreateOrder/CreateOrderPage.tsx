@@ -4,7 +4,6 @@ import {
   Text,
   VStack,
   Flex,
-  Heading,
   Spacer,
   Center,
   NumberInput,
@@ -25,11 +24,11 @@ import { OrderForm } from './OrderForm';
 import { Link } from 'react-router-dom';
 import { AppContainer } from '../../components';
 
-export const CreateOrder: React.FC = () => {
+export const CreateOrderPage: React.FC = () => {
   const { items, getTotalAmount, removeItem, updateQuantity } = useCart();
 
   return (
-    <>
+    <AppContainer heading="List of orders">
       {items.length === 0 && (
         <Alert status="warning">
           <AlertIcon />
@@ -106,12 +105,6 @@ export const CreateOrder: React.FC = () => {
           </VStack>
         )}
       </Flex>
-    </>
+    </AppContainer>
   );
 };
-
-export const CreateOrderPage: React.FC = () => (
-  <AppContainer heading='Shopping Cart'>
-    <CreateOrder></CreateOrder>
-  </AppContainer>
-);

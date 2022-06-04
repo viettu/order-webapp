@@ -37,7 +37,7 @@ const OrderDetailItems: React.FC<OrderDetailItemsProps> = ({ items }) => {
               {item.quantity}
             </Box>
             <Box w={{ base: '200px' }} textAlign={{ base: 'left', md: 'right' }}>
-              ${(item.quantity * item.price)}
+              ${item.quantity * item.price}
             </Box>
           </Flex>
         </Flex>
