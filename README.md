@@ -47,8 +47,16 @@ npm i
 npm run start
 ```
 
-#### 1.3 Thing should be improved next time
-- Adding unit testings
+#### 1.3 Unit testing
+
+Install the dependencies and devDependencies and start the server.
+```sh
+cd webapp/frontend
+npm run test
+```
+
+
+#### 1.4 Thing should be improved next time
 - UI consistency
 <br/>
 
@@ -82,7 +90,15 @@ npm run start:dev
 ```
 After this command, the service will listen on PORT 8001 and the swagger is available at http://localhost:8001/orders-api/
 
-#### 2.3 Deployment
+#### 2.3 Unit testing
+
+Install the dependencies and devDependencies and start the server.
+```sh
+cd ms-orders
+npm run test
+```
+
+#### 2.4 Deployment
 We can simulate deploying the service to K8s minikube. This requires minikube, kubectl and kustomize pre-installed.<br/>
 All YML files are setting never pull images for local testing.<br/>
 We must manually adding build images to minikube manually<br/>
@@ -97,9 +113,8 @@ eval $(minikube docker-env)
 docker build . -t ms-orders:v1
 ```
 
-#### 2.4 Thing should be improved next time
+#### 2.5 Thing should be improved next time
 - Should implement error management
-- The validations could be done better
 - ...
 <br/>
 
@@ -115,7 +130,16 @@ npm i
 npm run start:dev
 ```
 
-#### 3.2 Deployment
+#### 3.2 Unit testing
+
+Install the dependencies and devDependencies and start the server.
+```sh
+cd ms-payments
+npm run test
+```
+
+
+#### 3.3 Deployment
 We can simulate deploying the service to K8s minikube. This requires minikube, kubectl and kustomize pre-installed.<br/>
 All YML files are setting never pull images for local testing.<br/>
 We must manually adding build images to minikube manually<br/>
@@ -151,7 +175,16 @@ npm run start
 ```
 After this command, the service will listen on PORT 3200
 
-#### 4.3 Deployment
+#### 4.3 Unit testing
+
+Install the dependencies and devDependencies and start the server.
+```sh
+cd webapp/bff-orders
+npm run test
+```
+
+
+#### 4.4 Deployment
 We can simulate deploying the service to K8s minikube. This requires minikube, kubectl and kustomize pre-installed.<br/>
 All YML files are setting never pull images for local testing.<br/>
 We must manually adding build images to minikube manually<br/>
