@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
@@ -6,10 +6,11 @@ import getLogLevels from './share/utilities';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: getLogLevels(process.env.NODE_ENV === 'production')
+    logger: getLogLevels(process.env.NODE_ENV === 'production'),
   });
 
-  // Swagger setup
+  app.useGlobalPipes(new ValidationPipe());
+
   const config = new DocumentBuilder()
     .setTitle('Orders api')
     .setDescription('API for orders')

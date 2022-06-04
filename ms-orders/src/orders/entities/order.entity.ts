@@ -27,11 +27,11 @@ export class OrderEntity {
   @ApiProperty({ description: 'meta infor of who crated order', type: OrderInfoEntity })
   info: OrderInfoEntity;
 
-  @ApiProperty({ description: 'The state of order. Value could be CREATED | DELIVERED | CANCELLED'})
+  @ApiProperty({ description: 'The state of order. Value could be CREATED | DELIVERED | CANCELLED' })
   @Column()
   state: string;
 
-  @ApiProperty({ description: 'Amount of order'})
+  @ApiProperty({ description: 'Amount of order' })
   @Column()
   amount: number;
 

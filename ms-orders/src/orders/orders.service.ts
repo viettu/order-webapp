@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderStates } from '../share';
 import { Repository } from 'typeorm';
@@ -20,7 +16,7 @@ export class OrdersService {
     private readonly orderItemsRepository: Repository<OrderItemEntity>,
     @InjectRepository(OrderInfoEntity)
     private readonly orderInfoRepository: Repository<OrderInfoEntity>,
-    private readonly ordersPaymentQueueProcessor: OrdersPaymentQueueProcessor,
+    private readonly ordersPaymentQueueProcessor: OrdersPaymentQueueProcessor
   ) {}
 
   async create(orderDto: CreateOrderDto): Promise<OrderEntity> {
@@ -39,12 +35,9 @@ export class OrdersService {
     const orderItems: OrderItemEntity[] = orderDto.items?.map((e) => {
       const orderItem = new OrderItemEntity();
       orderItem.productId = e.productId;
-      orderItem.productTitle = e.productTitle;
-      orderItem.productImage = e.productImage;
       orderItem.order = order;
       orderItem.price = e.price;
       orderItem.quantity = e.quantity;
-      orderItem.unit = e.unit;
       return orderItem;
     });
     this.orderItemsRepository.save(orderItems);
@@ -72,13 +65,8 @@ export class OrdersService {
 
   async cancel(id: number): Promise<OrderEntity> {
     const order = await this.getOrder(id);
-    if (
-      order.state !== OrderStates.CREATED &&
-      order.state !== OrderStates.CONFIRMED
-    ) {
-      throw new BadRequestException(
-        `Unable to cancel an order with state ${order.state}`,
-      );
+    if (order.state !== OrderStates.CREATED && order.state !== OrderStates.CONFIRMED) {
+      throw new BadRequestException(`Unable to cancel an order with state ${order.state}`);
     }
 
     order.state = OrderStates.CANCELLED;

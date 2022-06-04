@@ -8,9 +8,7 @@ async function bootstrap() {
 
   if (process.env.NODE_ENV !== 'production') {
     const logger = new Logger();
-    logger.log(
-      `Connecting to QUEUE ${process.env.RABBITMQ_URL} - ${process.env.RABBITMQ_QUEUE}`,
-    );
+    logger.log(`Connecting to QUEUE ${process.env.RABBITMQ_URL} - ${process.env.RABBITMQ_QUEUE}`);
   }
 
   app.connectMicroservice<MicroserviceOptions>({

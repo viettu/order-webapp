@@ -5,11 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Job, Queue } from 'bull';
 import { firstValueFrom } from 'rxjs';
 import { Repository } from 'typeorm';
-import {
-  OrderStates,
-  PaymentProcessStatuses,
-  ORDERS_PAYMENT_QUEUE_NAME,
-} from '../share';
+import { OrderStates, PaymentProcessStatuses, ORDERS_PAYMENT_QUEUE_NAME } from '../share';
 import { OrderEntity } from './entities';
 
 enum QueueProcesses {
@@ -33,13 +29,11 @@ export class OrdersPaymentQueueProcessor {
     @Inject('PAYMENTS_SVR')
     private readonly clientProxy: ClientProxy,
     @InjectRepository(OrderEntity)
-    private readonly ordersRepository: Repository<OrderEntity>,
+    private readonly ordersRepository: Repository<OrderEntity>
   ) {}
 
   async processPayment(orderId: number) {
-    return this.ordersPaymentQueue.add(QueueProcesses.PAY_ORDER, <
-      IProcessOrderData
-    >{ orderId });
+    return this.ordersPaymentQueue.add(QueueProcesses.PAY_ORDER, <IProcessOrderData>{ orderId });
   }
 
   @Process(QueueProcesses.PAY_ORDER)
@@ -49,29 +43,21 @@ export class OrdersPaymentQueueProcessor {
       return;
     }
 
-    const paymentProcessStatus = await firstValueFrom(
-      this.clientProxy.send('GET_PAYMENT_STATUS', order.id),
-    );
+    const paymentProcessStatus = await firstValueFrom(this.clientProxy.send('GET_PAYMENT_STATUS', order.id));
     if (paymentProcessStatus === PaymentProcessStatuses.CONFIRMED) {
-      return this.ordersPaymentQueue.add(QueueProcesses.CONFIRM_ORDER, <
-        IProcessOrderData
-      >{ orderId: order.id });
+      return this.ordersPaymentQueue.add(QueueProcesses.CONFIRM_ORDER, <IProcessOrderData>{ orderId: order.id });
     }
 
-    return this.ordersPaymentQueue.add(QueueProcesses.CANCEL_ORDER, <
-      IProcessOrderData
-    >{ orderId: order.id });
+    return this.ordersPaymentQueue.add(QueueProcesses.CANCEL_ORDER, <IProcessOrderData>{ orderId: order.id });
   }
 
   @Process(QueueProcesses.CONFIRM_ORDER)
   async confirmOrder({ data }: Job<IProcessOrderData>) {
     const orderId = data.orderId;
     await this.updateState(data.orderId, OrderStates.CONFIRMED);
-    return this.ordersPaymentQueue.add(
-      QueueProcesses.DELIVER_ORDER,
-      <IProcessOrderData>{ orderId: orderId },
-      { delay: DELIVERY_AFTER_CONFIRMATION_INTERVAL },
-    );
+    return this.ordersPaymentQueue.add(QueueProcesses.DELIVER_ORDER, <IProcessOrderData>{ orderId: orderId }, {
+      delay: DELIVERY_AFTER_CONFIRMATION_INTERVAL,
+    });
   }
 
   @Process(QueueProcesses.CANCEL_ORDER)

@@ -24,11 +24,7 @@ describe('AppService', () => {
     saveOrderInfoFn = jest.fn().mockResolvedValue({});
     saveOrderItemsFn = jest.fn().mockResolvedValue([]);
     saveOrderFn = jest.fn().mockResolvedValue(MOCK_ORDER);
-    processPaymentFn = jest
-      .fn()
-      .mockImplementation((orderId: number) =>
-        Promise.resolve({ id: orderId }),
-      );
+    processPaymentFn = jest.fn().mockImplementation((orderId: number) => Promise.resolve({ id: orderId }));
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -76,7 +72,6 @@ describe('AppService', () => {
     orderItemDto.price = 100;
     orderItemDto.productId = 1;
     orderItemDto.quantity = 10;
-    orderItemDto.unit = 'Item';
 
     orderDto.items = [orderItemDto];
 

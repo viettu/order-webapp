@@ -38,29 +38,17 @@ const mockDataSources: IDatasources = {
 describe('Resolvers', () => {
   describe('Query', () => {
     it('getOrder', async () => {
-      const result = await resolvers.Query.getOrder(
-        undefined,
-        {},
-        { dataSources: mockDataSources },
-      );
+      const result = await resolvers.Query.getOrder(undefined, {}, { dataSources: mockDataSources });
       expect(result).toEqual(mockGetOrderValue);
     });
 
     it('getOrders', async () => {
-      const result = await resolvers.Query.getOrders(
-        undefined,
-        {},
-        { dataSources: mockDataSources },
-      );
+      const result = await resolvers.Query.getOrders(undefined, {}, { dataSources: mockDataSources });
       expect(result).toEqual(mockGetOrdersValue);
     });
 
     it('getOrderState', async () => {
-      const result = await resolvers.Query.getOrderState(
-        undefined,
-        {},
-        { dataSources: mockDataSources },
-      );
+      const result = await resolvers.Query.getOrderState(undefined, {}, { dataSources: mockDataSources });
       expect(result).toEqual('CREATED');
     });
   });

@@ -1,7 +1,7 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { Heading } from '@chakra-ui/react';
-import { QUERY_ORDER_DETAIL } from '../../data';
+import { CANCEL_ORDER_MUTATION, OrderStates, QUERY_ORDER_DETAIL } from '../../data';
 import { useParams } from 'react-router-dom';
 import OrderDetailState from './OrderDetailState';
 import OrderDetailItems from './OrderDetailItems';
@@ -10,26 +10,35 @@ import { useAppRuntime } from '../../contexts/app-runtime';
 import { useEffect } from 'react';
 import { AppContainer } from '../../components';
 
+const POLLING_INTERVAL = 2000;
+
 export const OrderDetailPage: React.FC = () => {
   const { id } = useParams();
   const orderId = parseInt(`${id}`);
 
-  const { data, loading, error } = useQuery(QUERY_ORDER_DETAIL, {
+  const { setIsLoading, setErrorMessage } = useAppRuntime();
+
+  const { data, loading, error, stopPolling } = useQuery(QUERY_ORDER_DETAIL, {
     variables: { id: orderId },
+    pollInterval: POLLING_INTERVAL,
     fetchPolicy: 'cache-and-network',
   });
 
-  const { setIsLoading, setErrorMessage } = useAppRuntime();
+  const [cancelOrder] = useMutation(CANCEL_ORDER_MUTATION, {
+    variables: { id: orderId },
+  });
+
+  const state = data?.getOrder?.state;
+  useEffect(() => {
+    if (error || state === OrderStates.CANCELLED || state === OrderStates.DELIVERED) {
+      stopPolling();
+    }
+  }, [state, stopPolling, error]);
+
   useEffect(() => {
     setIsLoading(loading);
-    if (error) {
-      setErrorMessage('Error when loading order');
-    }
+    setErrorMessage(error ? 'Error when loading order' : '');
   }, [loading, error]);
-
-  if (loading) {
-    return null;
-  }
 
   return (
     <AppContainer heading="Order Details">
@@ -38,7 +47,7 @@ export const OrderDetailPage: React.FC = () => {
       <Heading as="h4" size="md" mt={10}>
         Status
       </Heading>
-      <OrderDetailState orderId={orderId} pollingStatusInterval={2000}></OrderDetailState>
+      <OrderDetailState orderState={state} cancelOrder={() => cancelOrder()}></OrderDetailState>
 
       <Heading as="h4" size="md" mt={10}>
         Order items

@@ -16,10 +16,15 @@ export const QUERY_ORDER_DETAIL = gql`
       items {
         id
         productId
-        productTitle
-        productImage
+        product {
+          id
+          image
+          title
+          price
+          reviewCount
+          score
+        }
         quantity
-        unit
         price
       }
     }

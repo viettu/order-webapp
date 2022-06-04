@@ -9,18 +9,27 @@ type LayoutProps = {
 };
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const { isLoading, errorMessage } = useAppRuntime();
+  const { isLoading, errorMessage, setErrorMessage } = useAppRuntime();
   const toast = useToast();
 
   useEffect(() => {
+    toast.closeAll();
+    setErrorMessage('');
+  }, []);
+
+  useEffect(() => {
+    toast.closeAll();
     if (errorMessage) {
       toast({
         title: 'Something is wrong!',
         description: errorMessage,
         status: 'error',
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
-        position: 'top-right',
+        position: 'top',
+        onCloseComplete: () => {
+          setErrorMessage('');
+        },
       });
     }
   }, [errorMessage]);

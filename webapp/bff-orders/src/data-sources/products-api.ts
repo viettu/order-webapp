@@ -3,9 +3,7 @@ import BaseApi from './base-api';
 
 export interface IProductsApi {
   getProducts: () => Promise<Array<IProduct>>;
-  getProductsByIds: (
-    ids: Array<number>,
-  ) => Promise<{ [index: number]: IProduct }>;
+  getProductsByIds: (ids: Array<number>) => Promise<{ [index: number]: IProduct }>;
   getProduct: (id: number) => Promise<IProduct>;
 }
 
@@ -101,12 +99,8 @@ class ProductsApi extends BaseApi implements IProductsApi {
     return this.cloneMockData();
   }
 
-  async getProductsByIds(
-    ids: Array<number>,
-  ): Promise<{ [index: number]: IProduct }> {
-    const products = this.cloneMockData().filter(
-      (itm) => ids.indexOf(itm.id) >= 0,
-    );
+  async getProductsByIds(ids: Array<number>): Promise<{ [index: number]: IProduct }> {
+    const products = this.cloneMockData().filter((itm) => ids.indexOf(itm.id) >= 0);
     const response: { [index: number]: IProduct } = {};
     products.forEach((item) => (response[item.id] = item));
     return response;

@@ -22,13 +22,13 @@ const OrderDetailItems: React.FC<OrderDetailItemsProps> = ({ items }) => {
           <Image
             w={100}
             h={100}
-            src={`/images/${item.productImage}.png`}
+            src={`/images/${item.product?.image}.png`}
             objectFit="cover"
-            alt={item.productTitle}
+            alt={item.product?.title}
           ></Image>
           <Flex flex={1} flexWrap={'wrap'} direction={{ base: 'column', md: 'row' }} ml={5}>
             <Box flex={1}>
-              <Text fontWeight={'bold'}>{item.productTitle}</Text>
+              <Text fontWeight={'bold'}>{item.product?.title}</Text>
             </Box>
             <Box w={{ base: '200px' }} textAlign={{ base: 'left', md: 'right' }}>
               ${item.price}

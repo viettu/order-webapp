@@ -8,31 +8,27 @@ import { useAppRuntime } from '../../contexts/app-runtime';
 import { useEffect } from 'react';
 
 export const OrderListPage: React.FC = () => {
-  const { data, loading, error } = useQuery(QUERY_ORDERS);
+  const { data, loading, error } = useQuery(QUERY_ORDERS, {
+    fetchPolicy: 'cache-and-network',
+  });
   const navigate = useNavigate();
   const { setIsLoading, setErrorMessage } = useAppRuntime();
 
   useEffect(() => {
     setIsLoading(loading);
-    if (error) {
-      setErrorMessage('Error when loading list of orders');
-    }
+    setErrorMessage(error ? 'Error when loading list of orders' : '');
   }, [loading, error]);
-
-  if (loading) {
-    return null;
-  }
 
   const formatDate = (dateIso: string): string => {
     return dateIso?.substring(0, 10).split('-').join('');
   };
 
   const orders = (data?.getOrders as Array<IOrder>) || [];
-
+  const sortedOrdersDesc = [...orders].sort((a, b) => b.id - a.id);
   return (
     <AppContainer heading="List of orders">
       <List spacing={5}>
-        {orders.map((order) => (
+        {sortedOrdersDesc.map((order) => (
           <ListItem
             key={order.id}
             boxShadow="outline"

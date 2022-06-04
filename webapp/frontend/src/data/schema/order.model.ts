@@ -4,15 +4,13 @@ export interface IProduct {
   price: number;
   reviewCount: number;
   score: number;
-  unit?: string;
   image: string;
 }
 
 export interface IOrderItem {
   id: number;
   productId: number;
-  productTitle: string;
-  productImage: string;
+  product?: IProduct;
   price: number;
   quantity: number;
 }

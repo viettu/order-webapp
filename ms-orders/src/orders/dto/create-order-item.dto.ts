@@ -1,21 +1,16 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNumber } from 'class-validator';
 
 export class CreateOrderItemDto {
   @ApiProperty({ description: 'Id of the product' })
+  @IsNumber()
   productId: number;
 
-  @ApiProperty({ description: 'Product title' })
-  productTitle: string;
-
-  @ApiProperty({ description: 'Product image name' })
-  productImage: string;
-
   @ApiProperty({ description: 'Product price' })
+  @IsNumber()
   price: number;
 
   @ApiProperty({ description: 'Product quantiry' })
+  @IsNumber()
   quantity: number;
-
-  @ApiProperty({ description: 'Product unit, currently the value is always "Item"' })
-  unit: string;
 }

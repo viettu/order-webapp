@@ -10,6 +10,7 @@ import {
   VStack,
   InputLeftElement,
   Center,
+  chakra,
 } from '@chakra-ui/react';
 import { PhoneIcon } from '@chakra-ui/icons';
 import { Formik, Form, Field, FormikHelpers } from 'formik';
@@ -19,6 +20,8 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { CREATE_ORDER_MUTATION } from '../../data';
 import { useAppRuntime } from '../../contexts/app-runtime';
+
+const ChakraForm = chakra(Form);
 
 export const OrderForm: React.FC = () => {
   const { items, getTotalAmount, clearItems } = useCart();
@@ -45,11 +48,8 @@ export const OrderForm: React.FC = () => {
       items: items.map((itm) => {
         return {
           productId: itm.product.id,
-          productTitle: itm.product.title,
-          productImage: itm.product.image,
           price: itm.product.price,
           quantity: itm.quantity,
-          unit: 'Item',
         };
       }),
     };
@@ -74,7 +74,7 @@ export const OrderForm: React.FC = () => {
   return (
     <Formik initialValues={{}} onSubmit={onSubmit}>
       {(props) => (
-        <Form>
+        <ChakraForm w={'100%'}>
           <VStack spacing="24px" w={'100%'}>
             <Field name="name">
               {({ field, form }: any) => (
@@ -115,7 +115,7 @@ export const OrderForm: React.FC = () => {
               Create Order
             </Button>
           </Center>
-        </Form>
+        </ChakraForm>
       )}
     </Formik>
   );

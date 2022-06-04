@@ -37,10 +37,7 @@ export class OrdersModule {
   private readonly logger = new Logger(OrdersModule.name);
   onModuleInit() {
     if (process.env.NODE_ENV !== 'production') {
-      this.logger.log(
-        `Transporter Connection`,
-        `${process.env.RABBITMQ_URL} - ${process.env.RABBITMQ_QUEUE}`,
-      );
+      this.logger.log(`Transporter Connection`, `${process.env.RABBITMQ_URL} - ${process.env.RABBITMQ_QUEUE}`);
     }
   }
 }
