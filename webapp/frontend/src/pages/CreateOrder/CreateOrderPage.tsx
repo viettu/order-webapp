@@ -28,7 +28,7 @@ export const CreateOrderPage: React.FC = () => {
   const { items, getTotalAmount, removeItem, updateQuantity } = useCart();
 
   return (
-    <AppContainer heading="List of orders">
+    <AppContainer heading="Shopping cart">
       {items.length === 0 && (
         <Alert status="warning">
           <AlertIcon />
@@ -58,7 +58,7 @@ export const CreateOrderPage: React.FC = () => {
                   <Text fontWeight={'bold'}>{item.product.title}</Text>
                 </Box>
                 <Box flex={1} textAlign={{ base: 'left', md: 'right' }}>
-                  {item.product.price}
+                  ${item.product.price}
                 </Box>
                 <Flex flex={1} justifyContent={{ base: 'left', lg: 'right' }}>
                   <NumberInput
@@ -94,7 +94,7 @@ export const CreateOrderPage: React.FC = () => {
             <Center>
               <Text fontSize="xl">Order Total:</Text>
               <Text fontSize="xl" ml={3} fontWeight={'bold'}>
-                {getTotalAmount()}
+                ${getTotalAmount()}
               </Text>
             </Center>
           </Flex>
